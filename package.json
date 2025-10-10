@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://sriyakasumarthi.github.io/portfolio/",
+  "homepage": "https://sriyarKasumarthi.github.io/portfolio/",
   "dependencies": {
     "framer-motion": "^10.18.0",
     "lucide-react": "^0.545.0",
