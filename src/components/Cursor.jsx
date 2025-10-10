@@ -4,32 +4,47 @@ import { motion } from 'framer-motion';
 const Cursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+      setIsVisible(true);
     };
 
-    const handleMouseEnter = () => setIsHovering(true);
-    const handleMouseLeave = () => setIsHovering(false);
+    const handleMouseEnter = (e) => {
+      setIsHovering(true);
+    };
+    
+    const handleMouseLeave = (e) => {
+      setIsHovering(false);
+    };
+
+    const handleMouseOut = () => {
+      setIsVisible(false);
+    };
 
     // Add event listeners to interactive elements
-    const interactiveElements = document.querySelectorAll('button, a, [role="button"]');
+    const interactiveElements = document.querySelectorAll('button, a, [role="button"], .cursor-hover');
     interactiveElements.forEach(el => {
       el.addEventListener('mouseenter', handleMouseEnter);
       el.addEventListener('mouseleave', handleMouseLeave);
     });
 
     window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseOut);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseOut);
       interactiveElements.forEach(el => {
         el.removeEventListener('mouseenter', handleMouseEnter);
         el.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
   }, []);
+
+  if (!isVisible) return null;
 
   return (
     <>
@@ -41,8 +56,8 @@ const Cursor = () => {
           y: mousePosition.y - 16,
         }}
         animate={{
-          scale: isHovering ? 1.5 : 1,
-          opacity: isHovering ? 0.8 : 0.6,
+          scale: isHovering ? 1.8 : 1,
+          opacity: isHovering ? 0.9 : 0.6,
         }}
         transition={{
           type: "spring",
@@ -59,8 +74,8 @@ const Cursor = () => {
           y: mousePosition.y - 8,
         }}
         animate={{
-          scale: isHovering ? 2 : 1,
-          opacity: isHovering ? 0.4 : 0.2,
+          scale: isHovering ? 2.5 : 1,
+          opacity: isHovering ? 0.6 : 0.2,
         }}
         transition={{
           type: "spring",

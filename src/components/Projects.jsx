@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import FilterBar from './FilterBar';
-import ProjectModal from './ProjectModal';
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+  
+  // Obys-style scroll motion
+  const { scrollY } = useScroll();
+  const sectionY = useTransform(scrollY, [0, 1000], [0, -50]);
+  const titleY = useTransform(scrollY, [0, 800], [0, -30]);
 
   // Enhanced project data with more details
   const projects = [
     {
       id: 1,
+      slug: 'ecommerce-app',
       title: 'E-Commerce Mobile App',
       category: 'design',
       description: 'Redesigned shopping experience with focus on accessibility and user flow optimization.',
@@ -25,6 +30,7 @@ const Projects = () => {
     },
     {
       id: 2,
+      slug: 'healthcare-dashboard',
       title: 'Healthcare Dashboard',
       category: 'design',
       description: 'Complex data visualization interface for medical professionals.',
@@ -36,6 +42,7 @@ const Projects = () => {
     },
     {
       id: 3,
+      slug: 'ux-research-methods',
       title: 'UX Research Methods',
       category: 'publications',
       description: 'Comprehensive guide to modern user research techniques and methodologies.',
@@ -47,6 +54,7 @@ const Projects = () => {
     },
     {
       id: 4,
+      slug: 'design-system-docs',
       title: 'Design System Documentation',
       category: 'publications',
       description: 'Creating scalable design systems for enterprise applications.',
@@ -58,6 +66,7 @@ const Projects = () => {
     },
     {
       id: 5,
+      slug: 'urban-photography',
       title: 'Urban Photography Series',
       category: 'photography',
       description: 'Exploring the intersection of technology and human interaction in urban spaces.',
@@ -68,6 +77,7 @@ const Projects = () => {
     },
     {
       id: 6,
+      slug: 'minimalist-photos',
       title: 'Minimalist Product Shots',
       category: 'photography',
       description: 'Clean, focused photography highlighting product design details.',
@@ -78,6 +88,7 @@ const Projects = () => {
     },
     {
       id: 7,
+      slug: 'fintech-banking',
       title: 'Fintech Mobile Banking',
       category: 'design',
       description: 'Secure and intuitive banking experience for digital-first users.',
@@ -89,6 +100,7 @@ const Projects = () => {
     },
     {
       id: 8,
+      slug: 'design-thinking-workshop',
       title: 'Design Thinking Workshop',
       category: 'publications',
       description: 'Interactive workshop materials for teaching design thinking principles.',
@@ -127,13 +139,7 @@ const Projects = () => {
   }, []);
 
   const handleProjectClick = (project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => setSelectedProject(null), 300);
+    navigate(`/projects/${project.slug}`);
   };
 
   const containerVariants = {
@@ -176,7 +182,11 @@ const Projects = () => {
 
   return (
     <>
-      <section id="projects-section" className="py-24 px-6 bg-gradient-to-b from-beige-50 to-white relative overflow-hidden -mt-32 pt-32">
+      <motion.section 
+        id="projects-section" 
+        className="py-24 px-6 bg-gradient-to-b from-beige-50 to-white relative overflow-hidden -mt-8 pt-8"
+        style={{ y: sectionY }}
+      >
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-20 left-10 w-32 h-32 bg-beige-200 rounded-full blur-3xl" />
@@ -191,9 +201,12 @@ const Projects = () => {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <h2 className="text-5xl md:text-6xl font-bold font-orbitron text-gradient mb-8">
+            <motion.h2 
+              className="text-5xl md:text-6xl font-bold font-orbitron text-text mb-8"
+              style={{ y: titleY }}
+            >
               Featured Work
-            </h2>
+            </motion.h2>
             <p className="text-xl text-gray-600 font-space-grotesk max-w-3xl mx-auto leading-relaxed">
               A collection of design projects, publications, and creative explorations that showcase my approach to user-centered design
             </p>
@@ -224,7 +237,7 @@ const Projects = () => {
                       ease: [0.16, 1, 0.3, 1]
                     }
                   }}
-                  className="group cursor-pointer"
+                  className="group cursor-pointer cursor-hover"
                   style={{
                     animationDelay: `${index * 0.1}s`
                   }}
@@ -312,14 +325,8 @@ const Projects = () => {
             </motion.div>
           )}
         </div>
-      </section>
+      </motion.section>
 
-      {/* Project Modal */}
-      <ProjectModal
-        project={selectedProject}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-      />
     </>
   );
 };

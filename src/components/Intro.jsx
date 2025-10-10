@@ -5,6 +5,11 @@ const Intro = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, -150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0.3]);
+  
+  // Obys-style scroll motion
+  const textY = useTransform(scrollY, [0, 800], [0, -100]);
+  const titleY = useTransform(scrollY, [0, 600], [0, -80]);
+  const subtitleY = useTransform(scrollY, [0, 400], [0, -60]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -57,7 +62,7 @@ const Intro = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
+    <section className="h-[85vh] flex items-end justify-start px-6 relative overflow-hidden pb-16">
       {/* Enhanced parallax background */}
       <motion.div 
         className="absolute inset-0 parallax-bg"
@@ -65,30 +70,32 @@ const Intro = () => {
       />
       
       {/* 2025 Modern Portfolio Hero Layout */}
-      <div className="absolute inset-0 flex items-end justify-start p-16 z-10">
+      <div className="w-full flex items-end justify-start px-16 py-8 z-10">
         <motion.div
-          className="max-w-4xl"
+          className="w-full max-w-none"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {/* Editorial-style heading */}
-          <motion.div variants={itemVariants} className="mb-12">
+          {/* Editorial-style heading with scroll motion */}
+          <motion.div variants={itemVariants} className="mb-12" style={{ y: textY }}>
             <motion.h1 
-              className="text-7xl md:text-9xl font-bold font-orbitron text-gradient mb-8 leading-[0.85] tracking-tight"
+              className="text-7xl md:text-9xl font-bold font-orbitron text-text mb-8 leading-[0.85] tracking-tight w-full"
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              style={{ y: titleY }}
             >
               Sriya Kasumarthi
             </motion.h1>
             <motion.p 
-              className="text-lg md:text-xl text-text/80 font-space-grotesk leading-relaxed max-w-2xl"
+              className="text-lg md:text-xl text-text/80 font-space-grotesk leading-relaxed w-full max-w-none"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              style={{ y: subtitleY }}
             >
-              Crafting intuitive digital experiences through thoughtful design and user-centered research.
+              I'm a UX Designer and Vibe Engineer who turns emerging technologies into practical design tools. From building the first enterprise-scale vibe-coded prototypes to researching accessible AR/VR experiences for older adults, I'm focused on making emerging technology work for people—not the other way around.
             </motion.p>
           </motion.div>
 
@@ -101,8 +108,8 @@ const Intro = () => {
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
-              onClick={() => handleLinkClick('https://linkedin.com/in/yourprofile')}
-              className="group relative px-10 py-5 bg-gradient-to-r from-beige-500 to-beige-600 text-white font-medium rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+              onClick={() => handleLinkClick('https://linkedin.com/in/sriya-kasumarthi')}
+              className="group relative px-10 py-5 bg-white text-beige-600 font-medium rounded-xl border-2 border-beige-300 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-500 transition-all duration-500 cursor-hover"
             >
               <span className="relative z-10 flex items-center gap-4 text-lg">
                 <motion.svg 
@@ -116,18 +123,17 @@ const Intro = () => {
                 </motion.svg>
                 LinkedIn
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-beige-600 to-beige-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <div className="absolute inset-0 bg-gradient-to-r from-beige-50 to-beige-100 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
             </motion.button>
 
             <motion.button
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
-              onClick={() => handleLinkClick('https://yourblog.com')}
-              className="group relative px-10 py-5 border-2 border-beige-500 text-beige-600 font-medium rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+              onClick={() => handleLinkClick('https://interfacingtomorrow.substack.com/')}
+              className="group relative px-10 py-5 bg-white text-beige-600 font-medium rounded-xl border-2 border-beige-300 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-500 transition-all duration-500 cursor-hover"
             >
-              <span className="relative z-10 flex items-center gap-4 text-lg group-hover:text-white transition-colors duration-300">
+              <span className="relative z-10 flex items-center gap-4 text-lg">
                 <motion.svg 
                   className="w-6 h-6" 
                   fill="none" 
@@ -140,7 +146,7 @@ const Intro = () => {
                 </motion.svg>
                 Blog
               </span>
-              <div className="absolute inset-0 bg-beige-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-beige-50 to-beige-100 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
             </motion.button>
 
             <motion.button
@@ -148,7 +154,7 @@ const Intro = () => {
               whileHover="hover"
               whileTap="tap"
               onClick={() => handleLinkClick('/resume.pdf')}
-              className="group relative px-10 py-5 bg-white text-beige-600 font-medium rounded-xl border-2 border-beige-300 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-500 transition-all duration-500"
+              className="group relative px-10 py-5 bg-white text-beige-600 font-medium rounded-xl border-2 border-beige-300 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-500 transition-all duration-500 cursor-hover"
             >
               <span className="relative z-10 flex items-center gap-4 text-lg">
                 <motion.svg 

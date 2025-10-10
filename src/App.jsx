@@ -1,6 +1,6 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Intro from './components/Intro';
 import Projects from './components/Projects';
@@ -11,21 +11,25 @@ import ProjectDetail from './pages/ProjectDetail';
 import Cursor from './components/Cursor';
 
 function App() {
+  const location = useLocation();
+  
   const pageVariants = {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 0, y: 20, scale: 0.98 },
     in: { 
       opacity: 1, 
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.6,
+        duration: 0.8,
         ease: [0.16, 1, 0.3, 1]
       }
     },
     out: { 
       opacity: 0, 
       y: -20,
+      scale: 1.02,
       transition: {
-        duration: 0.4,
+        duration: 0.6,
         ease: [0.16, 1, 0.3, 1]
       }
     }
@@ -36,25 +40,28 @@ function App() {
       <Cursor />
       <Header />
       
-      <motion.main
-        variants={pageVariants}
-        initial="initial"
-        animate="in"
-        exit="out"
-      >
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Intro />
-              <Projects />
-            </>
-          } />
-          <Route path="/publications" element={<Publications />} />
-          <Route path="/photography" element={<Photography />} />
-          <Route path="/project/:id" element={<CaseStudy />} />
-          <Route path="/projects/:projectName" element={<ProjectDetail />} />
-        </Routes>
-      </motion.main>
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={location.pathname}
+          variants={pageVariants}
+          initial="initial"
+          animate="in"
+          exit="out"
+        >
+          <Routes location={location}>
+            <Route path="/" element={
+              <>
+                <Intro />
+                <Projects />
+              </>
+            } />
+            <Route path="/publications" element={<Publications />} />
+            <Route path="/photography" element={<Photography />} />
+            <Route path="/project/:id" element={<CaseStudy />} />
+            <Route path="/projects/:projectName" element={<ProjectDetail />} />
+          </Routes>
+        </motion.main>
+      </AnimatePresence>
 
       {/* Enhanced Footer */}
       <motion.footer
