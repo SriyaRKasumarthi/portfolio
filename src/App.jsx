@@ -59,6 +59,12 @@ function App() {
             <Route path="/photography" element={<Photography />} />
             <Route path="/project/:id" element={<CaseStudy />} />
             <Route path="/projects/:projectName" element={<ProjectDetail />} />
+            <Route path="*" element={
+              <>
+                <Intro />
+                <Projects />
+              </>
+            } />
           </Routes>
         </motion.main>
       </AnimatePresence>
@@ -143,7 +149,7 @@ function App() {
             viewport={{ once: true }}
           >
             <p className="text-gray-600 text-sm mb-4">
-              © 2024 UX Designer Portfolio. Crafted with React, Vite, Tailwind CSS, and Framer Motion.
+              © 2025 Sriya Kasumarthi Portfolio. Crafted with React, Vite, Tailwind CSS, and Framer Motion.
             </p>
             <p className="text-xs text-gray-500">
               Inspired by modern design principles and built for the future of web experiences.
