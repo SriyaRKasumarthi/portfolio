@@ -55,18 +55,34 @@ const Projects = () => {
     },
     {
       id: 4,
-      slug: 'design-system-docs',
-      title: 'Design System Documentation',
+      slug: 'injury-recovery-ar',
+      title: 'Injury Recovery AR Study',
+      fullTitle: 'Understanding User Needs for Injury Recovery with Augmented Reality',
       category: 'publications',
-      description: 'Creating scalable design systems for enterprise applications.',
-      details: 'Comprehensive documentation and guidelines for implementing design systems in large-scale applications. Covers component libraries, design tokens, and governance processes.',
-      technologies: ['Figma', 'Storybook', 'Documentation'],
-      year: '2023',
+      description: 'User-centered design research for AR-enhanced physical therapy and in-home injury recovery.',
+      details: `Physical therapy (PT) plays a crucial role in muscle injury recovery, but people struggle to adhere to and perform PT exercises correctly from home. To support challenges faced with in-home PT, augmented reality (AR) holds promise in enhancing patient's engagement and accuracy through immersive interactive visualizations. However, effectively leveraging AR requires a better understanding of patient needs during injury recovery. Through interviews with six individuals undergoing physical therapy, this paper introduces user-centered design considerations integrating AR and body motion data to enhance in-home PT for injury recovery. Our findings identify key challenges and propose design variables for future body-based visualizations of body motion data for PT.`,
+      technologies: ['Augmented Reality', 'Physical Therapy', 'User Research', 'Human-Computer Interaction', 'Body Motion Visualization'],
+      year: '2025',
       liveUrl: 'https://example.com',
+      paperUrl: 'https://0fbd1968-4f2d-4bdb-bce8-e3134bc377d6.filesusr.com/ugd/2e35d5_5b337e2fedf44fa08271f4571a847906.pdf',
       image: '/api/placeholder/400/300'
     },
     {
       id: 5,
+      slug: 'physical-therapy-mr',
+      title: 'Physical Therapy MR Study',
+      fullTitle: 'Understanding Physical Therapy Challenges for Older Adults through Mixed Reality',
+      category: 'publications',
+      description: 'Research on using mixed reality to address physical therapy challenges for older adults.',
+      details: `Physical therapy (PT) is crucial in helping older adults manage chronic conditions and weakening muscles, but older adults face increasing challenges that can impact their PT experience, including increased fatigue, memory loss, and mobility and travel constraints. While current technology attempts to facilitate remote care, they have limitations and are used in-practice infrequently. Mixed reality (MR) technology shows promise for addressing these challenges by creating immersive, context-aware environments remotely that previously could only be achieved in clinical settings. To bridge the gap between MR's potential and its practical application in geriatric PT, we conducted in-depth interviews with three PT clinicians and six older adult patients to understand challenges with PT care and adherence that MR may address. Our findings inform design considerations for supporting older adults' needs through MR and outline technical requirements for practical implementation.`,
+      technologies: ['Healthcare', 'Augmented Reality', 'Visualization'],
+      year: '2025',
+      liveUrl: 'https://example.com',
+      paperUrl: 'https://arxiv.org/html/2509.14514v1#abstract',
+      image: '/api/placeholder/400/300'
+    },
+    {
+      id: 6,
       slug: 'urban-photography',
       title: 'Urban Photography Series',
       category: 'photography',
@@ -77,7 +93,7 @@ const Projects = () => {
       image: '/api/placeholder/400/300'
     },
     {
-      id: 6,
+      id: 7,
       slug: 'minimalist-photos',
       title: 'Minimalist Product Shots',
       category: 'photography',
@@ -88,7 +104,7 @@ const Projects = () => {
       image: '/api/placeholder/400/300'
     },
     {
-      id: 7,
+      id: 8,
       slug: 'fintech-banking',
       title: 'Fintech Mobile Banking',
       category: 'design',
@@ -96,18 +112,6 @@ const Projects = () => {
       details: 'Designed a mobile banking application with a focus on security, accessibility, and user trust. The project involved complex financial workflows and regulatory compliance considerations.',
       technologies: ['Figma', 'Principle', 'React Native', 'Security'],
       year: '2024',
-      liveUrl: 'https://example.com',
-      image: '/api/placeholder/400/300'
-    },
-    {
-      id: 8,
-      slug: 'design-thinking-workshop',
-      title: 'Design Thinking Workshop',
-      category: 'publications',
-      description: 'Interactive workshop materials for teaching design thinking principles.',
-      details: 'Developed comprehensive workshop materials and activities for teaching design thinking methodologies. Includes facilitation guides, templates, and interactive exercises.',
-      technologies: ['Workshop Design', 'Facilitation', 'Education'],
-      year: '2023',
       liveUrl: 'https://example.com',
       image: '/api/placeholder/400/300'
     }

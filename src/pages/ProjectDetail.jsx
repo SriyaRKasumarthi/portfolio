@@ -1,13 +1,19 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ProjectLayout from '../components/ProjectLayout';
 
 const ProjectDetail = () => {
   const { projectName } = useParams();
+  const location = useLocation();
   const { scrollY } = useScroll();
   const imageY = useTransform(scrollY, [0, 1000], [0, -200]);
   const textY = useTransform(scrollY, [0, 1200], [0, -30]);
+
+  // Scroll to top on page load or route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   // Mock project data based on project name
   const getProjectData = (name) => {
@@ -117,7 +123,80 @@ const ProjectDetail = () => {
           { title: 'Experimental Setup', description: 'Study design with exercises varying in visibility and motion planes' },
           { title: 'Performance Analysis', description: 'Comparative analysis of different encoding and perspective combinations' },
           { title: 'Design Guidelines', description: 'Evidence-based recommendations for AR motion guidance systems' }
-        ]
+        ],
+        paperUrl: '/publications/ar-motion-guidance.pdf'
+      },
+      'injury-recovery-ar': {
+        title: 'Understanding User Needs for Injury Recovery with Augmented Reality',
+        subtitle: 'User-centered design research for AR-enhanced physical therapy',
+        backgroundImage: '/api/placeholder/1920/1080',
+        description: `Physical therapy (PT) plays a crucial role in muscle injury recovery, but people struggle to adhere to and perform PT exercises correctly from home. To support challenges faced with in-home PT, augmented reality (AR) holds promise in enhancing patient's engagement and accuracy through immersive interactive visualizations. However, effectively leveraging AR requires a better understanding of patient needs during injury recovery. Through interviews with six individuals undergoing physical therapy, this paper introduces user-centered design considerations integrating AR and body motion data to enhance in-home PT for injury recovery. Our findings identify key challenges and propose design variables for future body-based visualizations of body motion data for PT.`,
+        year: '2025',
+        role: 'Researcher & Designer',
+        duration: '10 months',
+        team: 'Research team of 3',
+        challenges: [
+          'Understanding diverse patient needs during injury recovery',
+          'Identifying barriers to in-home PT adherence and accuracy',
+          'Balancing AR visualization complexity with usability',
+          'Designing for varying injury types and recovery stages'
+        ],
+        process: [
+          'Literature Review: Examining existing AR PT solutions and design gaps',
+          'User Interviews: Six participants undergoing physical therapy',
+          'Qualitative Analysis: Identifying themes and user needs',
+          'Design Variables: Proposing AR visualization considerations for PT'
+        ],
+        results: [
+          'User-centered design considerations for AR-enhanced PT',
+          'Identified key challenges in in-home exercise adherence',
+          'Proposed design variables for body motion visualizations',
+          'Contributed to AR physical therapy research foundations'
+        ],
+        technologies: ['Augmented Reality', 'Physical Therapy', 'User Research', 'Human-Computer Interaction', 'Body Motion Visualization'],
+        images: [
+          { title: 'User Interview Insights', description: 'Key findings from interviews with PT patients' },
+          { title: 'Challenge Mapping', description: 'Identified barriers to in-home PT success' },
+          { title: 'Design Variables', description: 'Proposed considerations for AR PT visualizations' },
+          { title: 'Future Directions', description: 'Research opportunities for AR-enhanced recovery' }
+        ],
+        paperUrl: 'https://0fbd1968-4f2d-4bdb-bce8-e3134bc377d6.filesusr.com/ugd/2e35d5_5b337e2fedf44fa08271f4571a847906.pdf'
+      },
+      'physical-therapy-mr': {
+        title: 'Understanding Physical Therapy Challenges for Older Adults through Mixed Reality',
+        subtitle: 'Research on using MR to address PT challenges for older adults',
+        backgroundImage: '/api/placeholder/1920/1080',
+        description: `Physical therapy (PT) is crucial in helping older adults manage chronic conditions and weakening muscles, but older adults face increasing challenges that can impact their PT experience, including increased fatigue, memory loss, and mobility and travel constraints. While current technology attempts to facilitate remote care, they have limitations and are used in-practice infrequently. Mixed reality (MR) technology shows promise for addressing these challenges by creating immersive, context-aware environments remotely that previously could only be achieved in clinical settings. To bridge the gap between MR's potential and its practical application in geriatric PT, we conducted in-depth interviews with three PT clinicians and six older adult patients to understand challenges with PT care and adherence that MR may address. Our findings inform design considerations for supporting older adults' needs through MR and outline technical requirements for practical implementation.`,
+        year: '2025',
+        role: 'Researcher & Designer',
+        duration: '11 months',
+        team: 'Research team of 3',
+        challenges: [
+          'Understanding unique PT challenges faced by older adults',
+          'Addressing fatigue, memory loss, and mobility constraints',
+          'Identifying limitations of current remote care technologies',
+          'Balancing MR complexity with older adult usability needs'
+        ],
+        process: [
+          'Stakeholder Interviews: Three PT clinicians and six older adult patients',
+          'Challenge Mapping: Identifying PT care and adherence barriers',
+          'MR Design Considerations: User needs analysis for immersive PT',
+          'Technical Requirements: Outlining practical implementation needs'
+        ],
+        results: [
+          'Design considerations for MR-enhanced geriatric PT',
+          'Identified key barriers to PT adherence in older adults',
+          'Technical requirements for practical MR PT implementation',
+          'Published findings to inform future MR healthcare systems'
+        ],
+        technologies: ['Healthcare', 'Augmented Reality', 'Visualization'],
+        images: [
+          { title: 'User Research Findings', description: 'Insights from clinicians and older adult patients' },
+          { title: 'Challenge Analysis', description: 'PT barriers unique to older adult populations' },
+          { title: 'MR Design Framework', description: 'Considerations for immersive PT environments' },
+          { title: 'Implementation Guidelines', description: 'Technical requirements for practical deployment' }
+        ],
+        paperUrl: 'https://arxiv.org/html/2509.14514v1#abstract'
       }
     };
     
@@ -158,6 +237,41 @@ const ProjectDetail = () => {
           <p className="text-lg text-gray-300 leading-relaxed mb-12">
             {project.description}
           </p>
+          
+          {/* Read Paper Button (only for publications with paperUrl) */}
+          {project.paperUrl && (
+            <div className="mb-12">
+              <motion.a
+                href={project.paperUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-beige-500 text-white font-medium rounded-xl border-2 border-beige-400 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-300 transition-all duration-500 cursor-hover group"
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -2,
+                  transition: { 
+                    duration: 0.3,
+                    ease: [0.16, 1, 0.3, 1]
+                  }
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="relative z-10 text-lg">Read Paper</span>
+                <motion.svg 
+                  className="w-5 h-5 relative z-10" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 3 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </motion.svg>
+                <div className="absolute inset-0 bg-gradient-to-r from-beige-400 to-beige-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+              </motion.a>
+            </div>
+          )}
           
           {/* Project Details Grid */}
           <div className="grid md:grid-cols-4 gap-8 mb-12">
