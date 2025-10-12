@@ -95,7 +95,7 @@ const Intro = () => {
               transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
               style={{ y: subtitleY }}
             >
-              I'm a UX Designer and Vibe Engineer who turns emerging technologies into practical design tools. From building the first enterprise-scale vibe-coded prototypes to researching accessible AR/VR experiences for older adults, I'm focused on making emerging technology work for people—not the other way around.
+              UX Designer redefining how humans connect with technology—from web experiences to XR, AI, and robotics interfaces. Great design starts with listening. Purposeful products can only be built after a true understanding of the problem. My goal is simple: make technology enhance human capabilities rather than replacing what makes them human, freeing people to pursue what truly matters to them.
             </motion.p>
           </motion.div>
 

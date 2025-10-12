@@ -7,7 +7,7 @@ const ProjectDetail = () => {
   const { projectName } = useParams();
   const { scrollY } = useScroll();
   const imageY = useTransform(scrollY, [0, 1000], [0, -200]);
-  const textY = useTransform(scrollY, [0, 800], [0, -100]);
+  const textY = useTransform(scrollY, [0, 1200], [0, -30]);
 
   // Mock project data based on project name
   const getProjectData = (name) => {
@@ -83,6 +83,41 @@ const ProjectDetail = () => {
           { title: 'Visual Design System', description: 'Color-coded data visualization approach' },
           { title: 'Final Implementation', description: 'Live dashboard in medical environment' }
         ]
+      },
+      'ar-motion-guidance': {
+        title: 'Investigating Encodings Type and Frame of Reference for Augmented Reality Body Motion Guidance',
+        subtitle: 'Research on designing effective visual encodings and perspectives for AR motion guidance',
+        backgroundImage: '/api/placeholder/1920/1080',
+        description: `Augmented reality (AR) offers promising opportunities to support movement-based activities, such as personal training or physical therapy, with real-time, spatially-situated visual cues. While many approaches leverage AR to guide motion, existing design guidelines focus on simple, upper-body movements within the user's field of view. We lack evidence-based design recommendations for guiding more diverse scenarios involving movements with varying levels of visibility and direction. We conducted an experiment to investigate how different visual encodings and perspectives affect motion guidance performance and usability, using three exercises that varied in visibility and planes of motion. Our findings reveal significant differences in preference and performance across designs. Notably, the best perspective varied depending on motion visibility and showing more information about the overall motion did not necessarily improve motion execution. We provide empirically-grounded guidelines for designing immersive, interactive visualizations for motion guidance to support more effective AR systems.`,
+        year: '2025',
+        role: 'Researcher & Designer',
+        duration: '12 months',
+        team: 'Research team of 2',
+        challenges: [
+          'Limited evidence-based design guidelines for diverse body movements',
+          'Balancing information density with motion execution performance',
+          'Designing for movements with varying visibility levels',
+          'Accounting for different planes of motion and user perspectives'
+        ],
+        process: [
+          'Visual Encoding Designs: Different approaches to representing body motion in AR space',
+          'Experimental Setup: Study design with exercises varying in visibility and motion planes',
+          'Performance Analysis: Comparative analysis of different encoding and perspective combinations',
+          'Design Guidelines: Evidence-based recommendations for AR motion guidance systems',
+        ],
+        results: [
+          'Empirically-grounded design guidelines for AR motion guidance',
+          'Identified optimal perspectives for different motion types',
+          'Demonstrated that more information does not always improve performance',
+          'Published findings to advance AR interaction design'
+        ],
+        technologies: ['Augmented Reality', 'Human-Computer Interaction', 'Experimental Design', 'Data Visualization', 'User Study'],
+        images: [
+          { title: 'Visual Encoding Designs', description: 'Different approaches to representing body motion in AR space' },
+          { title: 'Experimental Setup', description: 'Study design with exercises varying in visibility and motion planes' },
+          { title: 'Performance Analysis', description: 'Comparative analysis of different encoding and perspective combinations' },
+          { title: 'Design Guidelines', description: 'Evidence-based recommendations for AR motion guidance systems' }
+        ]
       }
     };
     
@@ -146,93 +181,6 @@ const ProjectDetail = () => {
         </div>
       </motion.section>
 
-      {/* Project Images */}
-      <motion.section 
-        className="mb-24"
-        style={{ y: imageY }}
-      >
-        <h3 className="text-3xl font-bold font-orbitron text-white mb-12 text-center">
-          Process & Results
-        </h3>
-        <div className="space-y-16">
-          {project.images.map((image, index) => (
-            <motion.div
-              key={index}
-              className="grid lg:grid-cols-2 gap-12 items-center"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-            >
-              <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                <h4 className="text-2xl font-semibold font-space-grotesk text-white mb-4">
-                  {image.title}
-                </h4>
-                <p className="text-gray-300 leading-relaxed">
-                  {image.description}
-                </p>
-              </div>
-              <motion.div
-                className={`aspect-[4/3] bg-gradient-to-br from-beige-200 to-beige-400 rounded-2xl overflow-hidden ${index % 2 === 1 ? 'lg:order-1' : ''}`}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-beige-700 font-bold text-xl">{image.title}</span>
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Challenges & Solutions */}
-      <motion.section 
-        className="mb-24"
-        style={{ y: textY }}
-      >
-        <div className="grid lg:grid-cols-2 gap-16">
-          <div>
-            <h3 className="text-3xl font-bold font-orbitron text-white mb-8">
-              Challenges
-            </h3>
-            <ul className="space-y-4">
-              {project.challenges.map((challenge, index) => (
-                <motion.li
-                  key={index}
-                  className="flex items-start gap-4"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-gray-300">{challenge}</span>
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-3xl font-bold font-orbitron text-white mb-8">
-              Results
-            </h3>
-            <ul className="space-y-4">
-              {project.results.map((result, index) => (
-                <motion.li
-                  key={index}
-                  className="flex items-start gap-4"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-gray-300">{result}</span>
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </motion.section>
-
       {/* Technologies */}
       <motion.section 
         className="mb-24"
@@ -292,24 +240,52 @@ const ProjectDetail = () => {
         </div>
       </motion.section>
 
-      {/* Contact CTA */}
+      {/* Challenges & Solutions */}
       <motion.section 
-        className="text-center py-16"
+        className="mb-24"
         style={{ y: textY }}
       >
-        <h3 className="text-3xl font-bold font-orbitron text-white mb-6">
-          Interested in Similar Work?
-        </h3>
-        <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-          Let's discuss how we can create amazing user experiences together for your next project.
-        </p>
-        <motion.button
-          className="px-8 py-4 bg-beige-500 text-white font-medium rounded-lg hover:bg-beige-600 transition-colors duration-300"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Start a Project
-        </motion.button>
+        <div className="grid lg:grid-cols-2 gap-16">
+          <div>
+            <h3 className="text-3xl font-bold font-orbitron text-white mb-8">
+              Challenges
+            </h3>
+            <ul className="space-y-4">
+              {project.challenges.map((challenge, index) => (
+                <motion.li
+                  key={index}
+                  className="flex items-start gap-4"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-gray-300">{challenge}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="text-3xl font-bold font-orbitron text-white mb-8">
+              Results
+            </h3>
+            <ul className="space-y-4">
+              {project.results.map((result, index) => (
+                <motion.li
+                  key={index}
+                  className="flex items-start gap-4"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-gray-300">{result}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </motion.section>
     </ProjectLayout>
   );
