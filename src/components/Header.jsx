@@ -42,18 +42,24 @@ const Header = () => {
           }
         }}
       >
-        {/* Enhanced profile image with gradient overlay */}
-        <div className="w-full h-full bg-gradient-to-br from-beige-400 via-beige-500 to-beige-600 flex items-center justify-center relative overflow-hidden">
-          <span className="text-white font-bold text-xl font-orbitron relative z-10">
-            UX
-          </span>
+        {/* Profile image with hover effects */}
+        <div className="w-full h-full relative overflow-hidden">
+          <img 
+            src="/images/profile/ProfilePic.jpg" 
+            alt="Sriya Kasumarthi"
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Gradient overlay on hover */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+          
+          {/* Subtle dark gradient for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           
           {/* Home indicator - only show when not on home page */}
           {location.pathname !== '/' && (
             <motion.div
-              className="absolute top-1 right-1 w-3 h-3 bg-white/90 rounded-full flex items-center justify-center"
+              className="absolute top-1 right-1 w-3 h-3 bg-white/90 rounded-full flex items-center justify-center shadow-lg"
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2 }}
