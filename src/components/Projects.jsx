@@ -83,34 +83,36 @@ const Projects = () => {
     },
     {
       id: 6,
-      slug: 'urban-photography',
-      title: 'Urban Photography Series',
-      category: 'photography',
-      description: 'Exploring the intersection of technology and human interaction in urban spaces.',
-      details: 'A photographic exploration of how technology shapes human interaction in urban environments. The series examines the relationship between digital and physical spaces.',
-      technologies: ['Photography', 'Post-Processing', 'Concept Development'],
-      year: '2024',
-      image: '/api/placeholder/400/300'
-    },
-    {
-      id: 7,
-      slug: 'minimalist-photos',
-      title: 'Minimalist Product Shots',
-      category: 'photography',
-      description: 'Clean, focused photography highlighting product design details.',
-      details: 'Professional product photography focusing on clean, minimalist compositions that highlight design details and material textures. Used for various client projects and portfolio work.',
-      technologies: ['Photography', 'Lighting', 'Post-Processing'],
-      year: '2023',
-      image: '/api/placeholder/400/300'
-    },
-    {
-      id: 8,
       slug: 'fintech-banking',
       title: 'Fintech Mobile Banking',
       category: 'design',
       description: 'Secure and intuitive banking experience for digital-first users.',
       details: 'Designed a mobile banking application with a focus on security, accessibility, and user trust. The project involved complex financial workflows and regulatory compliance considerations.',
       technologies: ['Figma', 'Principle', 'React Native', 'Security'],
+      year: '2024',
+      liveUrl: 'https://example.com',
+      image: '/api/placeholder/400/300'
+    },
+    {
+      id: 7,
+      slug: 'inclusive-mobility-navigation',
+      title: 'Inclusive Mobility Navigation App',
+      category: 'design',
+      description: 'Design an inclusive navigation app with mobility-friendly features for Chapel Hill.',
+      details: 'Designed an inclusive navigation app with mobility-friendly features for Chapel Hill, inspired by Google and Apple Maps. The goal was to enhance accessibility for users with physical disabilities—temporary or permanent—by integrating assistive navigation into widely used platforms.',
+      technologies: ['Figma', 'Whimsical Research Boards', 'Interviews', 'UX Research', 'Wireframing', 'Prototyping', 'Inclusive Design', 'Accessibility', 'Usability Testing'],
+      year: '2024',
+      liveUrl: 'https://example.com',
+      image: '/api/placeholder/400/300'
+    },
+    {
+      id: 8,
+      slug: 'luminary-ar',
+      title: 'Luminary AR',
+      category: 'design',
+      description: 'Accessible Navigation for Real Mobility Needs',
+      details: 'Luminary AR is a campus navigation system designed to prioritize accessibility. By combining real-time routing, accessibility ratings, obstacle reporting, and community support, Luminary AR helps students with mobility impairments navigate efficiently and safely.',
+      technologies: ['Product Design', 'UX Research', 'HCI Research', 'Figma', 'Prototyping', 'User Testing', 'Accessibility', 'AR Design'],
       year: '2024',
       liveUrl: 'https://example.com',
       image: '/api/placeholder/400/300'

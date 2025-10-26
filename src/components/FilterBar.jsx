@@ -5,8 +5,7 @@ const FilterBar = ({ activeFilter, onFilterChange }) => {
   const filters = [
     { id: 'all', label: 'All' },
     { id: 'design', label: 'Design Projects' },
-    { id: 'publications', label: 'Publications' },
-    { id: 'photography', label: 'Photography' }
+    { id: 'publications', label: 'Publications' }
   ];
 
   const containerVariants = {

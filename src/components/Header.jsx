@@ -45,7 +45,7 @@ const Header = () => {
         {/* Profile image with hover effects */}
         <div className="w-full h-full relative overflow-hidden">
           <img 
-            src="/images/profile/Headshot.jpg" 
+            src={`${import.meta.env.BASE_URL}images/profile/Headshot.jpg`}
             alt="Sriya Kasumarthi"
             className="w-full h-full object-cover"
           />
