@@ -87,6 +87,32 @@ img {
   perspective: 1000px;
 }
 
+/* Prevent layout shifts and optimize rendering */
+motion.section,
+motion.div[style*="y:"] {
+  contain: layout style paint;
+}
+
+/* Optimize images for better scroll performance */
+img {
+  content-visibility: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Prevent content jumps during scroll */
+section {
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Smooth scrolling optimizations on mobile */
+@media (max-width: 768px) {
+  /* Optimize Framer Motion components for mobile */
+  [data-framer-component] {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 /* Custom gradient backgrounds */
 .gradient-bg {
   background: linear-gradient(135deg, #F8F5EF 0%, #F0EDE5 50%, #EAE7DC 100%);

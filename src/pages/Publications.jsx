@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ProjectLayout from '../components/ProjectLayout';
 
 const Publications = () => {
   const { scrollY } = useScroll();
-  const textY = useTransform(scrollY, [0, 1000], [0, -200]);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // Reduce parallax intensity on mobile
+  const parallaxMultiplier = isMobile ? 0.3 : 1;
+  const textY = useTransform(scrollY, [0, 1000], [0, -200 * parallaxMultiplier]);
   const imageOpacity = useTransform(scrollY, [0, 500], [1, 0.3]);
 
   return (
@@ -17,8 +30,12 @@ const Publications = () => {
       <div className="max-w-4xl mx-auto">
         {/* Introduction */}
         <motion.section 
-          className="mb-24"
-          style={{ y: textY }}
+          className="mb-12 sm:mb-16 md:mb-24 will-change-transform"
+          style={{ 
+            y: textY,
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden'
+          }}
         >
           <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
             Design Thinking in Practice
@@ -30,8 +47,12 @@ const Publications = () => {
 
         {/* Featured Article */}
         <motion.section 
-          className="mb-24"
-          style={{ y: textY }}
+          className="mb-12 sm:mb-16 md:mb-24 will-change-transform"
+          style={{ 
+            y: textY,
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden'
+          }}
         >
           <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
             <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">
@@ -52,8 +73,12 @@ const Publications = () => {
 
         {/* Article Grid */}
         <motion.section 
-          className="grid md:grid-cols-2 gap-8 mb-24"
-          style={{ y: textY }}
+          className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16 md:mb-24 will-change-transform"
+          style={{ 
+            y: textY,
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden'
+          }}
         >
           {[
             {
@@ -105,8 +130,12 @@ const Publications = () => {
 
         {/* Research Section */}
         <motion.section 
-          className="mb-24"
-          style={{ y: textY }}
+          className="mb-12 sm:mb-16 md:mb-24 will-change-transform"
+          style={{ 
+            y: textY,
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden'
+          }}
         >
           <h3 className="text-3xl font-bold font-orbitron text-white mb-8">
             Research & Studies
