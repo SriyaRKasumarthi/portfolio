@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Intro = () => {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, -150]);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // Reduce parallax intensity on mobile for better performance
+  const parallaxMultiplier = isMobile ? 0.3 : 1;
+  const y = useTransform(scrollY, [0, 500], [0, -150 * parallaxMultiplier]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0.3]);
   
-  // Obys-style scroll motion
-  const textY = useTransform(scrollY, [0, 800], [0, -100]);
-  const titleY = useTransform(scrollY, [0, 600], [0, -80]);
-  const subtitleY = useTransform(scrollY, [0, 400], [0, -60]);
+  // Obys-style scroll motion - reduced on mobile
+  const textY = useTransform(scrollY, [0, 800], [0, -100 * parallaxMultiplier]);
+  const titleY = useTransform(scrollY, [0, 600], [0, -80 * parallaxMultiplier]);
+  const subtitleY = useTransform(scrollY, [0, 400], [0, -60 * parallaxMultiplier]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -65,8 +78,13 @@ const Intro = () => {
     <section className="min-h-screen flex items-end justify-start px-6 relative overflow-hidden pb-20 md:pb-24 pt-[3vh] md:pt-[4vh]">
       {/* Enhanced parallax background */}
       <motion.div 
-        className="absolute inset-0 parallax-bg"
-        style={{ y, opacity }}
+        className="absolute inset-0 parallax-bg will-change-transform"
+        style={{ 
+          y, 
+          opacity,
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden'
+        }}
       />
       
       {/* 2025 Modern Portfolio Hero Layout */}
@@ -78,22 +96,38 @@ const Intro = () => {
           animate="visible"
         >
           {/* Editorial-style heading with scroll motion */}
-          <motion.div variants={itemVariants} className="mb-12" style={{ y: textY }}>
+          <motion.div 
+            variants={itemVariants} 
+            className="mb-12 will-change-transform" 
+            style={{ 
+              y: textY,
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden'
+            }}
+          >
             <motion.h1 
-              className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold font-orbitron text-text mb-8 leading-[0.85] tracking-tight w-full break-words"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold font-orbitron text-text mb-8 leading-[0.85] tracking-tight w-full break-words will-change-transform"
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              style={{ y: titleY }}
+              style={{ 
+                y: titleY,
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden'
+              }}
             >
               Sriya Kasumarthi
             </motion.h1>
             <motion.p 
-              className="text-lg md:text-xl text-text/80 font-space-grotesk leading-relaxed w-full max-w-none"
+              className="text-lg md:text-xl text-text/80 font-space-grotesk leading-relaxed w-full max-w-none will-change-transform"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              style={{ y: subtitleY }}
+              style={{ 
+                y: subtitleY,
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden'
+              }}
             >
               UX Designer redefining how humans connect with technology—from web experiences to XR, AI, and robotics interfaces. Great design starts with listening. Purposeful products can only be built after a true understanding of the problem. My goal is simple: make technology enhance human capabilities rather than replacing what makes them human, freeing people to pursue what truly matters to them.
             </motion.p>

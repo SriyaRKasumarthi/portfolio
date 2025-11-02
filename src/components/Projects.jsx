@@ -11,8 +11,21 @@ const Projects = () => {
   
   // Obys-style scroll motion
   const { scrollY } = useScroll();
-  const sectionY = useTransform(scrollY, [0, 1000], [0, -50]);
-  const titleY = useTransform(scrollY, [0, 800], [0, -30]);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // Reduce parallax intensity on mobile
+  const parallaxMultiplier = isMobile ? 0.3 : 1;
+  const sectionY = useTransform(scrollY, [0, 1000], [0, -50 * parallaxMultiplier]);
+  const titleY = useTransform(scrollY, [0, 800], [0, -30 * parallaxMultiplier]);
 
   // Enhanced project data with more details
   const projects = [
@@ -200,8 +213,12 @@ const Projects = () => {
     <>
       <motion.section 
         id="projects-section" 
-        className="py-24 px-6 bg-gradient-to-b from-beige-50 to-white relative overflow-hidden -mt-8 pt-8"
-        style={{ y: sectionY }}
+        className="py-24 px-6 bg-gradient-to-b from-beige-50 to-white relative overflow-hidden -mt-8 pt-8 will-change-transform"
+        style={{ 
+          y: sectionY,
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden'
+        }}
         variants={sectionVariants}
         initial="hidden"
         animate={shouldAnimateIn ? "visible" : isVisible ? "visible" : "hidden"}
@@ -221,8 +238,12 @@ const Projects = () => {
             viewport={{ once: true, amount: 0.3 }}
           >
             <motion.h2 
-              className="text-5xl md:text-6xl font-bold font-orbitron text-text mb-8"
-              style={{ y: titleY }}
+              className="text-5xl md:text-6xl font-bold font-orbitron text-text mb-8 will-change-transform"
+              style={{ 
+                y: titleY,
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden'
+              }}
             >
               Featured Work
             </motion.h2>
@@ -270,6 +291,8 @@ const Projects = () => {
                           src={project.image} 
                           alt={project.title}
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          decoding="async"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">

@@ -11,6 +11,8 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -20,6 +22,10 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   cursor: none; /* Hide default cursor */
+  /* Prevent flickering on mobile */
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Show cursor on interactive elements */
@@ -48,6 +54,37 @@ button, a, [role="button"], input, textarea, select {
 /* Smooth scrolling with Lenis-like effect */
 html {
   scroll-behavior: smooth;
+}
+
+/* Optimize scroll performance on mobile */
+@media (max-width: 768px) {
+  * {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* Reduce parallax intensity on mobile */
+  .parallax-bg {
+    animation: none;
+  }
+  
+  /* Optimize rendering for animated elements */
+  [data-framer-component] {
+    contain: layout style paint;
+  }
+}
+
+/* Prevent layout shifts */
+img {
+  content-visibility: auto;
+}
+
+/* GPU acceleration for scroll-based animations */
+.will-change-transform {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* Custom gradient backgrounds */

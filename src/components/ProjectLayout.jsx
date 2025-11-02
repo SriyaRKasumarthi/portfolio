@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const ProjectLayout = ({ 
@@ -8,6 +8,16 @@ const ProjectLayout = ({
   children 
 }) => {
   const { scrollY } = useScroll();
+  const [isDesktop, setIsDesktop] = useState(false);
+  
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
   
   // Parallax effects
   const backgroundY = useTransform(scrollY, [0, 1000], [0, -300]);
@@ -21,14 +31,17 @@ const ProjectLayout = ({
       <section className="relative h-[75vh] min-h-[500px] overflow-hidden pt-24 md:pt-28 lg:pt-32 scroll-mt-24">
         {/* Background Image with Parallax */}
         <motion.div
-          className="absolute inset-0"
-          style={{ y: backgroundY }}
+          className="absolute inset-0 will-change-transform"
+          style={{ 
+            y: backgroundY,
+            transform: 'translateZ(0)'
+          }}
         >
           <div 
-            className="w-full h-[120%] bg-cover bg-center bg-no-repeat"
+            className="w-full h-[120%] bg-cover bg-center bg-no-repeat will-change-transform"
             style={{
               backgroundImage: `url(${backgroundImage})`,
-              backgroundAttachment: 'fixed'
+              backgroundAttachment: isDesktop ? 'fixed' : 'scroll'
             }}
           />
           <div className="absolute inset-0 bg-black/40" />
