@@ -70,7 +70,7 @@ const Intro = () => {
       />
       
       {/* 2025 Modern Portfolio Hero Layout */}
-      <div className="w-full flex items-end justify-start px-8 md:px-16 py-8 z-10">
+      <div className="w-full flex items-end justify-start px-4 sm:px-8 md:px-16 py-8 z-10">
         <motion.div
           className="w-full max-w-none"
           variants={containerVariants}
@@ -80,7 +80,7 @@ const Intro = () => {
           {/* Editorial-style heading with scroll motion */}
           <motion.div variants={itemVariants} className="mb-12" style={{ y: textY }}>
             <motion.h1 
-              className="text-7xl md:text-9xl font-bold font-orbitron text-text mb-8 leading-[0.85] tracking-tight w-full"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold font-orbitron text-text mb-8 leading-[0.85] tracking-tight w-full break-words"
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
