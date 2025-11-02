@@ -45,7 +45,7 @@ const ProjectLayout = ({
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section with Parallax Background */}
-      <section className="relative h-[75vh] min-h-[500px] overflow-hidden pt-24 md:pt-28 lg:pt-32 scroll-mt-24">
+      <section className="relative h-[75vh] min-h-[500px] md:min-h-[600px] overflow-hidden pt-20 pb-16 md:pt-28 lg:pt-32 scroll-mt-24">
         {/* Background Image with Parallax */}
         <motion.div
           className="absolute inset-0"
@@ -65,13 +65,13 @@ const ProjectLayout = ({
 
         {/* Project Title and Subtitle */}
         <motion.div
-          className="absolute bottom-32 left-4 right-4 sm:left-8 sm:right-8 md:left-16 md:right-16 max-w-6xl z-10"
+          className={`${isMobile ? 'absolute top-24 inset-x-4' : 'absolute bottom-32 left-16 right-16'} sm:left-8 sm:right-8 md:left-16 md:right-16 md:bottom-32 max-w-6xl z-10`}
           style={{ 
             ...(isMobile ? {} : { y: titleY })
           }}
         >
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold font-orbitron mb-6 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-orbitron mb-4 sm:mb-6 leading-tight"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -79,7 +79,7 @@ const ProjectLayout = ({
             {title}
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl lg:text-2xl text-gray-300 font-space-grotesk leading-relaxed max-w-4xl"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 font-space-grotesk leading-relaxed max-w-4xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
