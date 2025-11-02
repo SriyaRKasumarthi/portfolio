@@ -19,10 +19,13 @@ const ProjectDetail = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
   
-  // Reduce parallax intensity on mobile
-  const parallaxMultiplier = isMobile ? 0.3 : 1;
-  const imageY = useTransform(scrollY, [0, 1000], [0, -200 * parallaxMultiplier]);
-  const textY = useTransform(scrollY, [0, 1200], [0, -30 * parallaxMultiplier]);
+  // Parallax - create transforms but disable on mobile
+  const imageYTransform = useTransform(scrollY, [0, 1000], [0, -200]);
+  const textYTransform = useTransform(scrollY, [0, 1200], [0, -30]);
+  
+  // Disable parallax on mobile
+  const imageY = isMobile ? 0 : imageYTransform;
+  const textY = isMobile ? 0 : textYTransform;
   
   // Video modal state
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -291,11 +294,9 @@ const ProjectDetail = () => {
     >
       {/* Project Overview */}
       <motion.section 
-        className="mb-12 sm:mb-16 md:mb-24 will-change-transform"
+        className="mb-24"
         style={{ 
-          y: textY,
-          transform: 'translateZ(0)',
-          backfaceVisibility: 'hidden'
+          ...(isMobile ? {} : { y: textY })
         }}
       >
         <div className="max-w-4xl mx-auto text-center">
@@ -443,11 +444,9 @@ const ProjectDetail = () => {
 
       {/* Technologies */}
       <motion.section 
-        className="mb-12 sm:mb-16 md:mb-24 will-change-transform"
+        className="mb-24"
         style={{ 
-          y: textY,
-          transform: 'translateZ(0)',
-          backfaceVisibility: 'hidden'
+          ...(isMobile ? {} : { y: textY })
         }}
       >
         <h3 className="text-3xl font-bold font-orbitron text-white mb-8 text-center">

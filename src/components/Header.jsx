@@ -114,7 +114,11 @@ const Header = () => {
         {/* Projects Link */}
         <motion.button
           onClick={handleProjectsClick}
-          className="font-space-grotesk text-sm md:text-base font-medium text-text hover:text-beige-600 transition-colors duration-300"
+          className={`font-space-grotesk text-sm md:text-base font-medium transition-colors duration-300 ${
+            isProjectPage 
+              ? 'text-beige-400 hover:text-beige-300' 
+              : 'text-text hover:text-beige-600'
+          }`}
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
           variants={navItemVariants}

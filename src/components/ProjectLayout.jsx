@@ -19,7 +19,7 @@ const ProjectLayout = ({
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
   
-  // Parallax effects - reduced on mobile for better performance
+  // Parallax effects - disabled on mobile for better performance
   const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
@@ -31,11 +31,16 @@ const ProjectLayout = ({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
   
-  const parallaxMultiplier = isMobile ? 0.3 : 1;
-  const backgroundY = useTransform(scrollY, [0, 1000], [0, -300 * parallaxMultiplier]);
-  const titleY = useTransform(scrollY, [0, 500], [0, -100 * parallaxMultiplier]);
+  // Parallax effects - always create transforms but disable on mobile
+  const backgroundYTransform = useTransform(scrollY, [0, 1000], [0, -300]);
+  const titleYTransform = useTransform(scrollY, [0, 500], [0, -100]);
   const contentOpacity = useTransform(scrollY, [0, 300], [1, 0.8]);
-  const contentY = useTransform(scrollY, [0, 500], [0, -50 * parallaxMultiplier]);
+  const contentYTransform = useTransform(scrollY, [0, 500], [0, -50]);
+  
+  // Disable parallax on mobile by using 0 instead of transform
+  const backgroundY = isMobile ? 0 : backgroundYTransform;
+  const titleY = isMobile ? 0 : titleYTransform;
+  const contentY = isMobile ? 0 : contentYTransform;
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -43,14 +48,13 @@ const ProjectLayout = ({
       <section className="relative h-[75vh] min-h-[500px] overflow-hidden pt-24 md:pt-28 lg:pt-32 scroll-mt-24">
         {/* Background Image with Parallax */}
         <motion.div
-          className="absolute inset-0 will-change-transform"
+          className="absolute inset-0"
           style={{ 
-            y: backgroundY,
-            transform: 'translateZ(0)'
+            ...(isMobile ? {} : { y: backgroundY })
           }}
         >
           <div 
-            className="w-full h-[120%] bg-cover bg-center bg-no-repeat will-change-transform"
+            className="w-full h-[120%] bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: `url(${backgroundImage})`,
               backgroundAttachment: isDesktop ? 'fixed' : 'scroll'
@@ -61,34 +65,24 @@ const ProjectLayout = ({
 
         {/* Project Title and Subtitle */}
         <motion.div
-          className="absolute bottom-16 sm:bottom-24 md:bottom-32 left-4 sm:left-8 md:left-16 right-4 sm:right-8 md:right-16 max-w-6xl z-10 will-change-transform"
+          className="absolute bottom-32 left-4 right-4 sm:left-8 sm:right-8 md:left-16 md:right-16 max-w-6xl z-10"
           style={{ 
-            y: titleY,
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden'
+            ...(isMobile ? {} : { y: titleY })
           }}
         >
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-orbitron mb-4 sm:mb-6 leading-tight will-change-transform"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold font-orbitron mb-6 leading-tight"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden'
-            }}
           >
             {title}
           </motion.h1>
           <motion.p
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 font-space-grotesk leading-relaxed max-w-4xl will-change-transform"
+            className="text-lg md:text-xl lg:text-2xl text-gray-300 font-space-grotesk leading-relaxed max-w-4xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden'
-            }}
           >
             {subtitle}
           </motion.p>
@@ -117,15 +111,13 @@ const ProjectLayout = ({
 
       {/* Content Section */}
       <motion.section
-        className="relative z-10 bg-black will-change-transform"
+        className="relative z-10 bg-black"
         style={{ 
           opacity: contentOpacity, 
-          y: contentY,
-          transform: 'translateZ(0)',
-          backfaceVisibility: 'hidden'
+          ...(isMobile ? {} : { y: contentY })
         }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12">
+        <div className="max-w-6xl mx-auto px-8 py-12 md:px-8 md:py-12">
           {children}
         </div>
       </motion.section>

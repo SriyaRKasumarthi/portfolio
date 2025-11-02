@@ -15,10 +15,12 @@ const Publications = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
   
-  // Reduce parallax intensity on mobile
-  const parallaxMultiplier = isMobile ? 0.3 : 1;
-  const textY = useTransform(scrollY, [0, 1000], [0, -200 * parallaxMultiplier]);
+  // Parallax - create transform but disable on mobile
+  const textYTransform = useTransform(scrollY, [0, 1000], [0, -200]);
   const imageOpacity = useTransform(scrollY, [0, 500], [1, 0.3]);
+  
+  // Disable parallax on mobile
+  const textY = isMobile ? 0 : textYTransform;
 
   return (
     <ProjectLayout
@@ -30,11 +32,9 @@ const Publications = () => {
       <div className="max-w-4xl mx-auto">
         {/* Introduction */}
         <motion.section 
-          className="mb-12 sm:mb-16 md:mb-24 will-change-transform"
+          className="mb-24"
           style={{ 
-            y: textY,
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden'
+            ...(isMobile ? {} : { y: textY })
           }}
         >
           <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
@@ -47,11 +47,9 @@ const Publications = () => {
 
         {/* Featured Article */}
         <motion.section 
-          className="mb-12 sm:mb-16 md:mb-24 will-change-transform"
+          className="mb-24"
           style={{ 
-            y: textY,
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden'
+            ...(isMobile ? {} : { y: textY })
           }}
         >
           <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
@@ -73,11 +71,9 @@ const Publications = () => {
 
         {/* Article Grid */}
         <motion.section 
-          className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16 md:mb-24 will-change-transform"
+          className="grid md:grid-cols-2 gap-8 mb-24"
           style={{ 
-            y: textY,
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden'
+            ...(isMobile ? {} : { y: textY })
           }}
         >
           {[
@@ -130,11 +126,9 @@ const Publications = () => {
 
         {/* Research Section */}
         <motion.section 
-          className="mb-12 sm:mb-16 md:mb-24 will-change-transform"
+          className="mb-24"
           style={{ 
-            y: textY,
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden'
+            ...(isMobile ? {} : { y: textY })
           }}
         >
           <h3 className="text-3xl font-bold font-orbitron text-white mb-8">
@@ -184,7 +178,9 @@ const Publications = () => {
         {/* Call to Action */}
         <motion.section 
           className="text-center py-16"
-          style={{ y: textY }}
+          style={{ 
+            ...(isMobile ? {} : { y: textY })
+          }}
         >
           <h3 className="text-2xl font-bold font-orbitron text-white mb-4">
             Stay Updated

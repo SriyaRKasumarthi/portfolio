@@ -87,29 +87,27 @@ img {
   perspective: 1000px;
 }
 
-/* Prevent layout shifts and optimize rendering */
-motion.section,
-motion.div[style*="y:"] {
-  contain: layout style paint;
-}
-
 /* Optimize images for better scroll performance */
 img {
   content-visibility: auto;
-  image-rendering: -webkit-optimize-contrast;
 }
 
-/* Prevent content jumps during scroll */
-section {
-  contain-intrinsic-size: auto 500px;
-}
-
-/* Smooth scrolling optimizations on mobile */
+/* Mobile-specific optimizations - disable complex animations */
 @media (max-width: 768px) {
-  /* Optimize Framer Motion components for mobile */
-  [data-framer-component] {
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
+  /* Disable parallax transforms on mobile */
+  [style*="y:"] {
+    transform: none !important;
+  }
+  
+  /* Prevent flickering by using simpler rendering */
+  * {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* Disable will-change on mobile to prevent performance issues */
+  .will-change-transform {
+    will-change: auto !important;
   }
 }
 
