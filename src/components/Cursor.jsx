@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Cursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [ripples, setRipples] = useState([]);
+  const isTouchDevice = useRef(false);
 
+  // Detect touch device
   useEffect(() => {
+    isTouchDevice.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }, []);
+
+  // Desktop cursor effect (only for non-touch devices)
+  useEffect(() => {
+    // Skip desktop cursor setup if touch device
+    if (isTouchDevice.current) return;
+
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
       setIsVisible(true);
@@ -44,6 +55,73 @@ const Cursor = () => {
     };
   }, []);
 
+  // Mobile ripple effect (only for touch devices)
+  useEffect(() => {
+    // Skip mobile ripple setup if not touch device
+    if (!isTouchDevice.current) return;
+
+    const handleTouchStart = (e) => {
+      const touch = e.touches[0];
+      if (touch) {
+        const newRipple = {
+          id: Date.now(),
+          x: touch.clientX,
+          y: touch.clientY,
+        };
+        setRipples(prev => [...prev, newRipple]);
+        
+        // Remove ripple after animation completes
+        setTimeout(() => {
+          setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id));
+        }, 300);
+      }
+    };
+
+    document.addEventListener('touchstart', handleTouchStart);
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+    };
+  }, []);
+
+  // Don't render desktop cursor on touch devices
+  if (isTouchDevice.current) {
+    return (
+      <AnimatePresence>
+        {ripples.map((ripple) => (
+          <motion.div
+            key={ripple.id}
+            className="fixed pointer-events-none z-50 rounded-full border-2 border-white/60"
+            style={{
+              left: ripple.x,
+              top: ripple.y,
+              width: 60,
+              height: 60,
+              x: '-50%',
+              y: '-50%',
+            }}
+            initial={{
+              scale: 0,
+              opacity: 0.7,
+            }}
+            animate={{
+              scale: 2.5,
+              opacity: 0,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              duration: 0.3,
+              ease: 'easeOut',
+            }}
+          />
+        ))}
+      </AnimatePresence>
+    );
+  }
+
+  // Desktop cursor (only rendered on non-touch devices)
   if (!isVisible) return null;
 
   return (
