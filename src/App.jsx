@@ -47,6 +47,7 @@ function App() {
           initial="initial"
           animate="in"
           exit="out"
+          className="pt-16"
         >
           <Routes location={location}>
             <Route path="/" element={

@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ProjectLayout from '../components/ProjectLayout';
+import VideoModal from '../components/VideoModal';
 
 const ProjectDetail = () => {
   const { projectName } = useParams();
@@ -9,6 +10,9 @@ const ProjectDetail = () => {
   const { scrollY } = useScroll();
   const imageY = useTransform(scrollY, [0, 1000], [0, -200]);
   const textY = useTransform(scrollY, [0, 1200], [0, -30]);
+  
+  // Video modal state
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   // Scroll to top on page load or route change
   useEffect(() => {
@@ -18,79 +22,8 @@ const ProjectDetail = () => {
   // Mock project data based on project name
   const getProjectData = (name) => {
     const projects = {
-      'ecommerce-app': {
-        title: 'E-Commerce Mobile App',
-        subtitle: 'Redesigned shopping experience with focus on accessibility',
-        backgroundImage: '/api/placeholder/1920/1080',
-        description: 'A comprehensive redesign of a mobile e-commerce application focusing on improving user experience, accessibility, and conversion rates.',
-        year: '2024',
-        role: 'Lead UX Designer',
-        duration: '6 months',
-        team: '5 designers, 3 developers',
-        challenges: [
-          'Improving conversion rates by 25%',
-          'Reducing cart abandonment by 40%',
-          'Ensuring WCAG 2.1 AA compliance',
-          'Creating a seamless mobile experience'
-        ],
-        process: [
-          'User Research & Analysis',
-          'Wireframing & Information Architecture',
-          'Visual Design & Prototyping',
-          'Usability Testing & Iteration',
-          'Development Handoff & Support'
-        ],
-        results: [
-          '25% increase in conversion rates',
-          '40% reduction in cart abandonment',
-          '95% user satisfaction score',
-          'Full WCAG 2.1 AA compliance'
-        ],
-        technologies: ['Figma', 'Principle', 'Sketch', 'InVision', 'React Native'],
-        images: [
-          { title: 'User Research Insights', description: 'Key findings from user interviews and usability testing' },
-          { title: 'Wireframe Iterations', description: 'Evolution of the information architecture' },
-          { title: 'Final Design System', description: 'Comprehensive design system implementation' },
-          { title: 'Mobile Prototype', description: 'Interactive prototype for user testing' }
-        ]
-      },
-      'healthcare-dashboard': {
-        title: 'Healthcare Dashboard',
-        subtitle: 'Complex data visualization for medical professionals',
-        backgroundImage: '/api/placeholder/1920/1080',
-        description: 'Designed an intuitive dashboard for healthcare professionals to manage patient data, appointments, and medical records.',
-        year: '2023',
-        role: 'Senior UX Designer',
-        duration: '8 months',
-        team: '3 designers, 5 developers',
-        challenges: [
-          'Complex data visualization requirements',
-          'High-stress medical environment considerations',
-          'HIPAA compliance and security',
-          'Multi-device compatibility'
-        ],
-        process: [
-          'Stakeholder Interviews',
-          'Data Architecture Planning',
-          'Wireframing & Prototyping',
-          'User Testing with Medical Staff',
-          'Iterative Design Refinement'
-        ],
-        results: [
-          '60% reduction in data lookup time',
-          '90% user adoption rate',
-          'Zero security incidents',
-          'Improved patient care efficiency'
-        ],
-        technologies: ['Figma', 'Adobe XD', 'React', 'D3.js', 'TypeScript'],
-        images: [
-          { title: 'Data Flow Analysis', description: 'Understanding complex medical data relationships' },
-          { title: 'Dashboard Wireframes', description: 'Initial layout and information hierarchy' },
-          { title: 'Visual Design System', description: 'Color-coded data visualization approach' },
-          { title: 'Final Implementation', description: 'Live dashboard in medical environment' }
-        ]
-      },
       'ar-motion-guidance': {
+        slug: 'ar-motion-guidance',
         title: 'Investigating Encodings Type and Frame of Reference for Augmented Reality Body Motion Guidance',
         subtitle: 'Research on designing effective visual encodings and perspectives for AR motion guidance',
         backgroundImage: '/api/placeholder/1920/1080',
@@ -198,49 +131,6 @@ const ProjectDetail = () => {
         ],
         paperUrl: 'https://arxiv.org/html/2509.14514v1#abstract'
       },
-      'inclusive-mobility-navigation': {
-        title: 'Inclusive Mobility Navigation App',
-        subtitle: 'Design an inclusive navigation app with mobility-friendly features for Chapel Hill',
-        backgroundImage: '/api/placeholder/1920/1080',
-        description: 'Designed an inclusive navigation app with mobility-friendly features for Chapel Hill, inspired by Google and Apple Maps. The goal was to enhance accessibility for users with physical disabilities—temporary or permanent—by integrating assistive navigation into widely used platforms.',
-        year: '2024',
-        role: 'UX Designer & Researcher',
-        duration: '4 months',
-        team: '3 designers, 2 researchers',
-        challenges: [
-          'Understanding diverse mobility needs and accessibility requirements',
-          'Integrating assistive features without overwhelming mainstream users',
-          'Designing for both temporary and permanent mobility limitations',
-          'Creating intuitive emergency assistance features',
-          'Ensuring comprehensive accessibility compliance'
-        ],
-        process: [
-          'Community Research: Forums and accessibility community insights',
-          'User Interviews: Direct conversations with wheelchair users',
-          'Persona Development: Creating detailed user profiles',
-          'Feature Ideation: Brainstorming mobility-friendly solutions',
-          'Low-Fidelity Wireframing: Initial design concepts',
-          'Usability Testing: Iterative testing with target users',
-          'High-Fidelity Prototyping: Final interactive designs'
-        ],
-        results: [
-          'Identified 6 key accessibility features for navigation apps',
-          'Created comprehensive personas for different mobility needs',
-          'Designed intuitive emergency assistance system',
-          'Developed accessibility rating system for routes',
-          'Achieved 90% user satisfaction in usability testing'
-        ],
-        technologies: ['Figma', 'Whimsical Research Boards', 'Interviews', 'UX Research', 'Wireframing', 'Prototyping', 'Inclusive Design', 'Accessibility', 'Usability Testing'],
-        images: [
-          { title: 'Research Insights', description: 'Key findings from community forums and user interviews' },
-          { title: 'User Personas', description: 'Detailed profiles of different mobility user types' },
-          { title: 'Feature Discovery', description: 'Six core accessibility features identified through research' },
-          { title: 'Low-Fidelity Wireframes', description: 'Initial design concepts and user flows' },
-          { title: 'Usability Testing', description: 'Testing sessions with wheelchair users and feedback' },
-          { title: 'High-Fidelity Prototype', description: 'Final interactive design with all accessibility features' }
-        ],
-        prototypeUrl: 'https://example.com/prototype'
-      },
       'luminary-ar': {
         title: 'Luminary AR',
         subtitle: 'Accessible Navigation for Real Mobility Needs',
@@ -286,6 +176,78 @@ const ProjectDetail = () => {
           { title: 'Final Design Mockups', description: 'Annotated Figma mockups of all 8 screens' }
         ],
         caseStudyUrl: 'https://example.com/case-study'
+      },
+      'oasis': {
+        title: 'Oasis',
+        subtitle: 'An accessible ecosystem of health and wellness products for menopausal people',
+        backgroundImage: '/api/placeholder/1920/1080',
+        description: 'Designing an accessible ecosystem of health and wellness products for women navigating menopause. A comprehensive system including ring wearable, phone app, Google Nest integration, and VR relaxation experiences.',
+        year: '2024',
+        role: 'UX Designer & Researcher',
+        duration: '6 months',
+        team: '3 designers, 2 researchers',
+        challenges: [
+          'Addressing confusion and fear around menopause for 50+ million people in the US',
+          'Designing holistic solutions across multiple platforms and devices',
+          'Ensuring accessibility and voice-friendly interfaces',
+          'Creating empathetic, non-medicalized approach to menopause support'
+        ],
+        process: [
+          'User Research: Interviews with menopausal women',
+          'Competitive Analysis: Reviewing existing solutions',
+          'Proof of Concept: Analyzing Oura ring approach',
+          'System Design: 4-part ecosystem architecture',
+          'Prototyping: Phone app, VR app, ring design, voice interface',
+          'Design System: Comprehensive visual and interaction guidelines'
+        ],
+        results: [
+          'High-fidelity prototype of phone and VR applications',
+          'Google Home conversation design for voice accessibility',
+          'Ring wearable design for physiological monitoring',
+          'Comprehensive design system and logo design',
+          'Holistic approach to menopause wellness support'
+        ],
+        technologies: ['UX Research', 'Competitive Analysis', 'Prototyping', 'VR Design', 'Voice Design', 'Wearable Design', 'Design System', 'Logo Design'],
+        images: [
+          { title: 'Phone App Prototype', description: 'Mobile application for symptom tracking and community support' },
+          { title: 'VR App Design', description: 'Immersive relaxation and wellness experiences' },
+          { title: 'Ring Design', description: 'Wearable device for physiological monitoring' },
+          { title: 'Competitive Analysis', description: 'Analysis of existing menopause and wellness solutions' }
+        ]
+      },
+      'robotic-gestures': {
+        title: 'Robotic Gestures for Enhanced Virtual Meetings',
+        subtitle: 'Exploring how robotic gestures can augment web conferencing to enhance social presence, comfort, and engagement',
+        backgroundImage: '/api/placeholder/1920/1080',
+        description: 'Remote communication often lacks the social cues that make in-person interactions engaging. This project investigates how robotic gestures can improve engagement, comfort, and social presence in virtual meetings through a pilot study with 4 participants using a Wizard of Oz setup.',
+        year: '2025',
+        role: 'UX Researcher & Human-Robot Interaction Designer',
+        duration: '3 months',
+        team: '1 researcher, 1 robotics engineer',
+        challenges: [
+          'Designing natural robotic gestures that mirror human movements',
+          'Ensuring safety in human-robot interaction',
+          'Creating intuitive multi-step gesture sequences',
+          'Maintaining social presence synchronization'
+        ],
+        process: [
+          'Gesture Design: Mirroring natural human movements',
+          'Pilot Study: 4 participants with Wizard of Oz setup',
+          'Data Collection: Qualitative and quantitative feedback',
+          'Analysis: Group debrief and survey analysis'
+        ],
+        results: [
+          'Demonstrated meaningful engagement enhancement in virtual meetings',
+          'Consistent gestures build trust and reduce awkwardness',
+          'Adaptive gesture speed improves perceived naturalness',
+          'Actionable insights for future HRI systems'
+        ],
+        technologies: ['Human-Robot Interaction', 'UX Research', 'Robotics', 'Virtual Meetings', 'Social Presence'],
+        images: [
+          { title: 'Robotic Arm Setup', description: 'Figure 1: Robotic arm setup relative to participant and laptop' },
+          { title: 'Interaction Flow', description: 'Figure 2: Interaction flow from arrival → gesture → response → reset' },
+          { title: 'Participant Reaction', description: 'Figure 3: Example participant reaction to robotic gesture' }
+        ]
       }
     };
     
@@ -392,84 +354,69 @@ const ProjectDetail = () => {
           {/* Read Paper Button (only for publications with paperUrl) */}
           {project.paperUrl && (
             <div className="mb-12">
-              <motion.a
-                href={project.paperUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-beige-500 text-white font-medium rounded-xl border-2 border-beige-400 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-300 transition-all duration-500 cursor-hover group"
-                whileHover={{ 
-                  scale: 1.05,
-                  y: -2,
-                  transition: { 
-                    duration: 0.3,
-                    ease: [0.16, 1, 0.3, 1]
-                  }
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="relative z-10 text-lg">Read Paper</span>
-                <motion.svg 
-                  className="w-5 h-5 relative z-10" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 3 }}
-                  transition={{ duration: 0.3 }}
+              {project.slug === 'ar-motion-guidance' ? (
+                <motion.div
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-gray-500 text-white font-medium rounded-xl border-2 border-gray-400 cursor-not-allowed opacity-60"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </motion.svg>
-                <div className="absolute inset-0 bg-gradient-to-r from-beige-400 to-beige-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
-              </motion.a>
-            </div>
-          )}
-          
-          {/* View Prototype Button (only for inclusive-mobility-navigation) */}
-          {project.prototypeUrl && (
-            <div className="mb-12">
-              <motion.a
-                href={project.prototypeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-beige-500 text-white font-medium rounded-xl border-2 border-beige-400 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-300 transition-all duration-500 cursor-hover group"
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="relative z-10 text-lg">View Prototype</span>
-                <motion.svg 
-                  className="w-5 h-5 relative z-10" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 3 }}
-                  transition={{ duration: 0.3 }}
+                  <span className="relative z-10 text-lg">Coming Soon</span>
+                  <motion.svg 
+                    className="w-5 h-5 relative z-10" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </motion.svg>
+                </motion.div>
+              ) : (
+                <motion.a
+                  href={project.paperUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-beige-500 text-white font-medium rounded-xl border-2 border-beige-400 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-300 transition-all duration-500 cursor-hover group"
+                  whileHover={{ 
+                    scale: 1.05,
+                    y: -2,
+                    transition: { 
+                      duration: 0.3,
+                      ease: [0.16, 1, 0.3, 1]
+                    }
+                  }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </motion.svg>
-                <div className="absolute inset-0 bg-gradient-to-r from-beige-400 to-beige-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
-              </motion.a>
+                  <span className="relative z-10 text-lg">Read Paper</span>
+                  <motion.svg 
+                    className="w-5 h-5 relative z-10" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 3 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </motion.svg>
+                  <div className="absolute inset-0 bg-gradient-to-r from-beige-400 to-beige-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+                </motion.a>
+              )}
             </div>
           )}
           
           {/* Project Details Grid */}
           <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="text-sm font-medium text-gray-400 mb-2">Year</h3>
               <p className="text-xl font-semibold text-white">{project.year}</p>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="text-sm font-medium text-gray-400 mb-2">Role</h3>
               <p className="text-xl font-semibold text-white">{project.role}</p>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="text-sm font-medium text-gray-400 mb-2">Duration</h3>
               <p className="text-xl font-semibold text-white">{project.duration}</p>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="text-sm font-medium text-gray-400 mb-2">Team</h3>
               <p className="text-xl font-semibold text-white">{project.team}</p>
             </div>
@@ -489,7 +436,7 @@ const ProjectDetail = () => {
           {project.technologies.map((tech, index) => (
             <motion.span
               key={index}
-              className="px-6 py-3 bg-white/10 backdrop-blur-sm text-white rounded-full border border-white/20"
+              className="px-6 py-3 bg-white/10 text-white rounded-full border border-white/20"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -524,7 +471,7 @@ const ProjectDetail = () => {
                 real-time routing, accessibility ratings, obstacle reporting, and community support, Luminary AR helps students 
                 with mobility impairments navigate efficiently and safely.
               </p>
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+              <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                 <div className="w-full rounded-lg overflow-hidden">
                   <img 
                     src={`${import.meta.env.BASE_URL}images/personas/luminaryhero.jpg`}
@@ -575,7 +522,7 @@ const ProjectDetail = () => {
                   </li>
                 </ul>
                 
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 mb-8">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 mb-8">
                   <p className="text-gray-300 italic text-lg leading-relaxed">
                     "During my orientation, I was stuck in classrooms where my wheelchair didn't fit between the desks… 
                     I'm constantly worried about attending student organization events because I never know what obstacles 
@@ -598,11 +545,11 @@ const ProjectDetail = () => {
                   We conducted interviews with two students with mobility impairments:
                 </p>
                 <div className="grid md:grid-cols-2 gap-8 mb-8">
-                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                     <h4 className="text-xl font-semibold text-white mb-3">Participant A</h4>
                     <p className="text-gray-300 text-sm mb-4">Experienced wheelchair and walker user, service animal handler, deeply involved in accessibility advocacy.</p>
                   </div>
-                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                     <h4 className="text-xl font-semibold text-white mb-3">Participant C</h4>
                     <p className="text-gray-300 text-sm mb-4">Long-term wheelchair user, accessibility researcher, leader of Project Luminary.</p>
                   </div>
@@ -639,7 +586,7 @@ const ProjectDetail = () => {
                 Personas
               </h2>
               <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                   <div className="w-full rounded-lg mb-4 overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/personas/persona1-nancy-lee.jpg`}
@@ -657,7 +604,7 @@ const ProjectDetail = () => {
                   <p className="text-white font-medium">Nancy Lee</p>
                   <p className="text-gray-400 text-sm">Computer Science PhD Student</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                   <div className="w-full rounded-lg mb-4 overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/personas/persona2-olivia-bennett.jpg`}
@@ -675,7 +622,7 @@ const ProjectDetail = () => {
                   <p className="text-white font-medium">Olivia Bennett</p>
                   <p className="text-gray-400 text-sm">Student</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                   <div className="w-full rounded-lg mb-4 overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/personas/persona3-rachel-smith.jpg`}
@@ -693,7 +640,7 @@ const ProjectDetail = () => {
                   <p className="text-white font-medium">Rachel Smith</p>
                   <p className="text-gray-400 text-sm">Chemistry Lab Assistant</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                   <div className="w-full rounded-lg mb-4 overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/personas/persona4-mitchell-pritchett.jpg`}
@@ -725,32 +672,32 @@ const ProjectDetail = () => {
                 Key Features
               </h2>
               <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Accessibility Info</h3>
                   <p className="text-gray-300 text-sm">Visual and verbal route information</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Rating System</h3>
                   <p className="text-gray-300 text-sm">1-5 star ratings for routes and locations</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Community Support</h3>
                   <p className="text-gray-300 text-sm">Live chats and route reviews</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Personalization</h3>
                   <p className="text-gray-300 text-sm">Customized experience for individual needs</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Quick Settings</h3>
                   <p className="text-gray-300 text-sm">Accessibility toggles and preferences</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">AR Navigation</h3>
                   <p className="text-gray-300 text-sm">Guided navigation with alternative routes</p>
                 </div>
               </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                   <div className="w-full rounded-lg overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/personas/features.png`}
@@ -785,7 +732,7 @@ const ProjectDetail = () => {
                     <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">Prototype 1</h3>
                     <p className="text-gray-300 leading-relaxed">Initial accessibility overlay on Google Maps with basic rating system and toggle settings.</p>
                   </div>
-                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                     <div className="w-full rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/personas/prototype1.png`}
@@ -805,7 +752,7 @@ const ProjectDetail = () => {
 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="order-2 md:order-1">
-                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                    <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                       <div className="w-full rounded-lg overflow-hidden">
                         <img 
                           src={`${import.meta.env.BASE_URL}images/personas/prototype2.png`}
@@ -833,7 +780,7 @@ const ProjectDetail = () => {
                     <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">Prototype 3</h3>
                     <p className="text-gray-300 leading-relaxed">Advanced routing with pre-search options, detailed settings, and dynamic assistance features.</p>
                   </div>
-                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                     <div className="w-full rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/personas/prototype3.png`}
@@ -853,7 +800,7 @@ const ProjectDetail = () => {
 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="order-2 md:order-1">
-                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                    <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                       <div className="w-full rounded-lg overflow-hidden">
                         <img 
                           src={`${import.meta.env.BASE_URL}images/personas/finalprototype.png`}
@@ -972,40 +919,40 @@ const ProjectDetail = () => {
                 Final Design
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-3">Sign In</h3>
                   <p className="text-gray-300 text-sm">Google sign-in, profile creation for personalization</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-3">Profile Customization</h3>
                   <p className="text-gray-300 text-sm">Accessibility settings, route history, audio/visual aids</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-3">Street View Planning</h3>
                   <p className="text-gray-300 text-sm">Assess route pain points via images and AR warnings</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-3">Location Details</h3>
                   <p className="text-gray-300 text-sm">Annotated building accessibility information</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-3">Directions with Stars</h3>
                   <p className="text-gray-300 text-sm">Segment-based accessibility ratings</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-3">Edit Route</h3>
                   <p className="text-gray-300 text-sm">Modify routes based on obstacles and share custom paths</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-3">Navigation Go</h3>
                   <p className="text-gray-300 text-sm">AR-guided navigation with alternative route options</p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-3">Route Rating</h3>
                   <p className="text-gray-300 text-sm">Post-route feedback system with comments, tags, and star ratings</p>
                 </div>
               </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
                   <div className="w-full rounded-lg overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/personas/annotatedfigmamockup.png`}
@@ -1132,349 +1079,753 @@ const ProjectDetail = () => {
         </>
       )}
 
-      {/* Project-Specific Sections for Inclusive Mobility Navigation */}
-      {projectName === 'inclusive-mobility-navigation' && (
+      {/* Project-Specific Sections for Oasis */}
+      {projectName === 'oasis' && (
         <>
-          {/* Problem Statement */}
+          {/* Overview */}
           <motion.section 
             className="mb-24"
             style={{ y: textY }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
-                Problem Statement
+                Overview
               </h2>
-              <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                Traditional navigation apps like Google Maps and Apple Maps are designed primarily for able-bodied users, 
-                often overlooking the specific needs of individuals with mobility challenges. Users with physical disabilities, whether 
-                temporary or permanent, face significant barriers when navigating urban environments, particularly in areas like Chapel Hill 
-                with varying terrain and accessibility infrastructure.
-              </p>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                The challenge was to design an inclusive navigation solution that seamlessly integrates accessibility features 
-                into a mainstream app experience, ensuring that mobility-friendly navigation becomes the standard rather than an afterthought.
-              </p>
-            </div>
-          </motion.section>
+              
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <motion.a
+                  href="https://devpost.com/sriyakasumarthi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-beige-500 text-white font-medium rounded-xl border-2 border-beige-400 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-300 transition-all duration-500 cursor-hover group"
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="relative z-10 text-lg">View Devpost</span>
+                  <motion.svg
+                    className="w-5 h-5 relative z-10"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 3 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </motion.svg>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-beige-400 to-beige-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  />
+                </motion.a>
 
-          {/* Research Process */}
-          <motion.section 
-            className="mb-24"
-            style={{ y: textY }}
-          >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
-                Research Process
-              </h2>
-              <div className="grid md:grid-cols-2 gap-12">
-                <div>
-                  <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
-                    Community Insights
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    Started by analyzing accessibility forums and community discussions to understand common pain points 
-                    and unmet needs in navigation apps.
-                  </p>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">Reddit accessibility communities</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">Disability advocacy group forums</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">App store reviews analysis</span>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
-                    User Interviews
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed mb-4">
-                    Conducted in-depth interviews with wheelchair users and individuals with various mobility challenges 
-                    to understand their navigation experiences and needs.
-                  </p>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">5 wheelchair users</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">3 users with temporary mobility limitations</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">2 caregivers and family members</span>
-                    </li>
-                  </ul>
-                </div>
+                <motion.a
+                  href="https://www.figma.com/proto/HjruOQE1DXCCx8iOYkN3Wy/menopause-app?type=design&node-id=48-21221&t=bpYreXVedSGX7o8G-1&scaling=scale-down&page-id=48%3A21173&starting-point-node-id=48%3A21221&show-proto-sidebar=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-beige-500 text-white font-medium rounded-xl border-2 border-beige-400 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-300 transition-all duration-500 cursor-hover group"
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="relative z-10 text-lg">View Figma Prototype</span>
+                  <motion.svg
+                    className="w-5 h-5 relative z-10"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 3 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1m-6-8h8a2 2 0 012 2v8a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2z" />
+                  </motion.svg>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-beige-400 to-beige-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  />
+                </motion.a>
               </div>
-            </div>
-          </motion.section>
-
-          {/* Personas & User Flows */}
-          <motion.section 
-            className="mb-24"
-            style={{ y: textY }}
-          >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
-                Personas & User Flows
-              </h2>
-              <div className="grid md:grid-cols-3 gap-8 mb-12">
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-xl font-semibold text-white mb-4">Sarah, 28</h3>
-                  <p className="text-gray-300 text-sm mb-4">Permanent wheelchair user</p>
-                  <p className="text-gray-300 text-sm">
-                    Needs detailed accessibility information, prefers routes with elevators and ramps, 
-                    values real-time accessibility updates.
-                  </p>
+              
+              {/* Logo Section */}
+              <div className="bg-white/5 rounded-xl p-8 border border-white/10 mb-8 text-center">
+                <div className="w-32 h-32 mx-auto mb-4 rounded-lg overflow-hidden">
+                  <img 
+                    src={`${import.meta.env.BASE_URL}images/oasis/oasislogo.png`}
+                    alt="Oasis Logo"
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                  <div className="w-full h-full bg-gray-600 rounded-lg flex items-center justify-center" style={{display: 'none'}}>
+                    <span className="text-gray-400">Oasis Logo</span>
+                  </div>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-xl font-semibold text-white mb-4">Marcus, 45</h3>
-                  <p className="text-gray-300 text-sm mb-4">Temporary mobility limitation</p>
-                  <p className="text-gray-300 text-sm">
-                    Recently injured, needs accessible routes but wants to maintain independence, 
-                    appreciates clear accessibility indicators.
-                  </p>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-xl font-semibold text-white mb-4">Elena, 35</h3>
-                  <p className="text-gray-300 text-sm mb-4">Caregiver</p>
-                  <p className="text-gray-300 text-sm">
-                    Plans routes for elderly parent, needs comprehensive accessibility information 
-                    and emergency assistance features.
-                  </p>
-                </div>
+                <h3 className="text-2xl font-semibold text-white">Oasis</h3>
+                <p className="text-gray-300 mt-2">Health & Wellness Ecosystem</p>
               </div>
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
-                <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
-                  Key User Flow: Emergency Assistance
-                </h3>
+              
+              {/* Scenario Card */}
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10 mb-8">
+                <h3 className="text-xl font-semibold text-white mb-4">Scenario</h3>
                 <p className="text-gray-300 leading-relaxed">
-                  Designed a streamlined emergency assistance flow that allows users to quickly contact help 
-                  when encountering accessibility barriers or safety concerns during navigation.
+                  Over 50 million people are navigating menopause in the United States alone, and their experience is clouded by confusion and fear.
                 </p>
               </div>
-            </div>
-          </motion.section>
 
-          {/* Features Discovered */}
-          <motion.section 
-            className="mb-24"
-            style={{ y: textY }}
-          >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
-                Features Discovered
-              </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-lg font-semibold text-white mb-3">Call for Help</h3>
-                  <p className="text-gray-300 text-sm">
-                    Emergency contact setup with one-tap calling and location sharing for safety.
+              {/* Tasks Card */}
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10 mb-8">
+                <h3 className="text-xl font-semibold text-white mb-4">Tasks</h3>
+                <p className="text-gray-300 leading-relaxed">
+                  Design an accessible ecosystem of health and wellness products for women navigating menopause.
+                </p>
+              </div>
+
+              {/* Actions and Results - Horizontal Layout */}
+              <div className="grid md:grid-cols-2 gap-8 mb-8">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold text-white mb-4">Actions</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-gray-300 text-sm">User Research and Interviews</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-gray-300 text-sm">Competitive Analysis</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-gray-300 text-sm">Prototyping features</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold text-white mb-4">Results</h3>
+                  <p className="text-gray-300 leading-relaxed text-sm">
+                    High-Fidelity Prototype of Phone and VR App, Google Home Conversation design, Ring design
                   </p>
                 </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-lg font-semibold text-white mb-3">Mobility Toggles</h3>
-                  <p className="text-gray-300 text-sm">
-                    Customizable accessibility preferences for different mobility needs and limitations.
-                  </p>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-lg font-semibold text-white mb-3">AR Overlays</h3>
-                  <p className="text-gray-300 text-sm">
-                    Augmented reality features to highlight accessible routes and obstacles in real-time.
-                  </p>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-lg font-semibold text-white mb-3">User Reporting</h3>
-                  <p className="text-gray-300 text-sm">
-                    Community-driven accessibility reporting system for real-time updates.
-                  </p>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-lg font-semibold text-white mb-3">Accessibility Tags</h3>
-                  <p className="text-gray-300 text-sm">
-                    Detailed accessibility information for locations including ramps, elevators, and restrooms.
-                  </p>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-lg font-semibold text-white mb-3">Rated Route Segments</h3>
-                  <p className="text-gray-300 text-sm">
-                    Accessibility ratings for different route segments based on user feedback and data.
-                  </p>
+              </div>
+
+              {/* My Responsibilities - Grid Layout */}
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <h3 className="text-xl font-semibold text-white mb-6">My Responsibilities</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <span className="text-gray-300 text-sm">Competitive Analysis</span>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <span className="text-gray-300 text-sm">User Interviews</span>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <span className="text-gray-300 text-sm">Prototyping UX features and user flow</span>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <span className="text-gray-300 text-sm">VR App High-fidelity prototype</span>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <span className="text-gray-300 text-sm">Google Home Conversation design</span>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <span className="text-gray-300 text-sm">Design System</span>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <span className="text-gray-300 text-sm">Ring Design</span>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <span className="text-gray-300 text-sm">Logo Design</span>
+                  </div>
                 </div>
               </div>
             </div>
           </motion.section>
 
-          {/* Ideation */}
+          {/* Discovery */}
           <motion.section 
             className="mb-24"
             style={{ y: textY }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
-                Ideation
+                Discovery
               </h2>
-              <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                Through collaborative brainstorming sessions, we explored various approaches to integrate accessibility 
-                features seamlessly into mainstream navigation. Key focus areas included maintaining simplicity while 
-                adding powerful accessibility tools, ensuring the app remains intuitive for all users.
-              </p>
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
-                <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">
-                  Design Principles
+              
+              <div className="mb-8">
+                <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
+                  Identifying the Problem Space
                 </h3>
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 mb-8">
+                  <p className="text-gray-300 italic text-lg leading-relaxed">
+                    "Efforts are being taken to mitigate the medicalization of menopause, by designing for menopausal [people's] overall well-being rather than a specific physiological or psychological symptom." – Thiruvenkatanathan Et al.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mb-8">
+                <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
+                  User Research
+                </h3>
+                
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 mb-8">
+                  <h4 className="text-xl font-semibold text-white mb-4">Competitive Analysis</h4>
+                  <p className="text-gray-300 mb-6">Analysis of existing menopause and wellness solutions to understand market gaps and opportunities.</p>
+                  
+                  <div className="w-full rounded-lg overflow-hidden">
+                    <img
+                      src={`${import.meta.env.BASE_URL}images/oasis/competitiveanalysis.png`}
+                      alt="Competitive Analysis"
+                      className="w-full h-auto object-contain rounded-lg"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                    <div className="w-full h-96 bg-gray-600 rounded-lg flex items-center justify-center" style={{display: 'none'}}>
+                      <span className="text-gray-400">Competitive Analysis</span>
+                    </div>
+                  </div>
+                </div>
+                
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                    <span className="text-gray-300">Inclusive by default, not as an afterthought</span>
+                    <span className="text-gray-300">User interviews</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                    <span className="text-gray-300">Community-driven accessibility data</span>
+                    <span className="text-gray-300">Competitive Analysis</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                    <span className="text-gray-300">Emergency assistance integration</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                    <span className="text-gray-300">Real-time accessibility updates</span>
+                    <span className="text-gray-300">Proof of Concept: Oura</span>
                   </li>
                 </ul>
               </div>
             </div>
           </motion.section>
 
-          {/* Low-Fidelity Wireframes */}
+          {/* System Overview & Prototypes */}
           <motion.section 
             className="mb-24"
             style={{ y: textY }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
-                Low-Fidelity Wireframes
+                System Overview & Prototypes
               </h2>
-              <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                Initial wireframes focused on information architecture and user flow optimization. 
-                Key screens included accessibility preferences setup, route planning with accessibility filters, 
-                and emergency assistance interface.
-              </p>
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
-                <p className="text-gray-400 italic">Wireframe images will be added later</p>
-              </div>
-            </div>
-          </motion.section>
-
-          {/* Usability Testing + Feedback Insights */}
-          <motion.section 
-            className="mb-24"
-            style={{ y: textY }}
-          >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
-                Usability Testing + Feedback Insights
-              </h2>
-              <div className="grid md:grid-cols-2 gap-12">
-                <div>
-                  <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
-                    Testing Process
-                  </h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">8 participants with mobility challenges</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">Task-based usability testing</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">Think-aloud protocol</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">Post-test interviews</span>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
-                    Key Insights
-                  </h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">Emergency features were highly valued</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">Accessibility tags needed more detail</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">Community reporting was essential</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-300">AR features needed refinement</span>
-                    </li>
-                  </ul>
+              
+              <div className="mb-12">
+                <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
+                  4-Part Ecosystem
+                </h3>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                    <h4 className="text-xl font-semibold text-white mb-4">Ring Wearable</h4>
+                    <p className="text-gray-300">Monitors physiological changes</p>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                    <h4 className="text-xl font-semibold text-white mb-4">Phone App</h4>
+                    <p className="text-gray-300">Symptom tracking, advice, community</p>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                    <h4 className="text-xl font-semibold text-white mb-4">Google Nest</h4>
+                    <p className="text-gray-300">Voice Assistant, Accessibility</p>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                    <h4 className="text-xl font-semibold text-white mb-4">Virtual Reality</h4>
+                    <p className="text-gray-300">Immersive relaxation</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.section>
-
-          {/* High-Fidelity Prototype Section */}
-          <motion.section 
-            className="mb-24"
-            style={{ y: textY }}
-          >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
-                High-Fidelity Prototype
-              </h2>
-              <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                The final prototype incorporated all feedback from usability testing, featuring refined accessibility 
-                features, improved information hierarchy, and enhanced emergency assistance capabilities.
-              </p>
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 text-center">
-                <p className="text-gray-400 italic">High-fidelity prototype images will be added later</p>
+              
+              <div>
+                <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
+                  Prototypes & Proof of Concept
+                </h3>
+                
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                    <div className="w-full rounded-lg overflow-hidden">
+                      <img 
+                        src={`${import.meta.env.BASE_URL}images/oasis/oasisapp.png`}
+                        alt="Oasis Phone App Prototype"
+                        className="w-full h-auto object-contain rounded-lg"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="w-full h-64 bg-gray-600 rounded-lg flex items-center justify-center" style={{display: 'none'}}>
+                        <span className="text-gray-400">Phone App Prototype</span>
+                      </div>
+                    </div>
+                    <h4 className="text-lg font-semibold text-white mt-4">Phone App</h4>
+                    <p className="text-gray-300 text-sm mt-2">Mobile application for symptom tracking and community support</p>
+                  </div>
+                  
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                    <div className="w-full rounded-lg overflow-hidden">
+                      <img 
+                        src={`${import.meta.env.BASE_URL}images/oasis/oasisvr.png`}
+                        alt="Oasis VR App Design"
+                        className="w-full h-auto object-contain rounded-lg"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="w-full h-64 bg-gray-600 rounded-lg flex items-center justify-center" style={{display: 'none'}}>
+                        <span className="text-gray-400">VR App Design</span>
+                      </div>
+                    </div>
+                    <h4 className="text-lg font-semibold text-white mt-4">VR App</h4>
+                    <p className="text-gray-300 text-sm mt-2">Immersive relaxation and wellness experiences</p>
+                  </div>
+                  
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                    <div className="w-full rounded-lg overflow-hidden">
+                      <img 
+                        src={`${import.meta.env.BASE_URL}images/oasis/oasisring.png`}
+                        alt="Oasis Ring Design"
+                        className="w-full h-auto object-contain rounded-lg"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="w-full h-64 bg-gray-600 rounded-lg flex items-center justify-center" style={{display: 'none'}}>
+                        <span className="text-gray-400">Ring Design</span>
+                      </div>
+                    </div>
+                    <h4 className="text-lg font-semibold text-white mt-4">Ring Design</h4>
+                    <p className="text-gray-300 text-sm mt-2">Wearable device for physiological monitoring</p>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.section>
 
-          {/* Final Thoughts */}
+          {/* UX Design Goals */}
           <motion.section 
             className="mb-24"
             style={{ y: textY }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
-                Final Thoughts
+                UX Design Goals
               </h2>
-              <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                This project reinforced the importance of inclusive design in mainstream applications. By conducting 
-                thorough research with the accessibility community and iterating based on real user feedback, we created 
-                a navigation solution that serves all users while prioritizing accessibility needs.
-              </p>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                The key takeaway was that accessibility features shouldn't be hidden or difficult to access, they should 
-                be seamlessly integrated into the core user experience, making navigation more inclusive for everyone.
-              </p>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">User-Centered Design</h3>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">Clear Medical Explanations</h3>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">Menopause Specific Symptoms</h3>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">Voice Accessible</h3>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">AI Analytics and Insights</h3>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Key Features */}
+          <motion.section 
+            className="mb-24"
+            style={{ y: textY }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+                Key Features
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">Symptom logging</h3>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">In-app Shop for Supplies</h3>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">Medication Reminders</h3>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">In-app Appointment Booking</h3>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">Stress Reduction Techniques</h3>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <h3 className="text-lg font-semibold text-white mb-2">Sensitive Notifications</h3>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Lessons Learned */}
+          <motion.section 
+            className="mb-24"
+            style={{ y: textY }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+                Lessons Learned
+              </h2>
+              
+              <div className="space-y-6">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold text-white mb-4">The importance of empathy</h3>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold text-white mb-4">Menopause is often misunderstood and characterized by physical and emotional changes</h3>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold text-white mb-4">Menopause is interdisciplinary; therefore its solutions must be holistic</h3>
+                </div>
+              </div>
             </div>
           </motion.section>
         </>
       )}
+
+      {/* Project-Specific Sections for Robotic Gestures */}
+      {projectName === 'robotic-gestures' && (
+        <>
+          {/* Overview */}
+          <motion.section 
+            className="mb-24"
+            style={{ y: textY }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+                Overview
+              </h2>
+              
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <motion.a
+                  href={`${import.meta.env.BASE_URL}images/robotic-gestures/Robotics Augmented Web Conferencing.docx.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-beige-500 text-white font-medium rounded-xl border-2 border-beige-400 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-300 transition-all duration-500 cursor-hover group"
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="relative z-10 text-lg">View Research Paper</span>
+                  <motion.svg
+                    className="w-5 h-5 relative z-10"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 3 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </motion.svg>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-beige-400 to-beige-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  />
+                </motion.a>
+
+                <motion.button
+                  onClick={() => setIsVideoModalOpen(true)}
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-beige-500 text-white font-medium rounded-xl border-2 border-beige-400 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-300 transition-all duration-500 cursor-hover group"
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="relative z-10 text-lg">Watch Demo Video</span>
+                  <motion.svg
+                    className="w-5 h-5 relative z-10"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 3 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1m-6-8h8a2 2 0 012 2v8a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2z" />
+                  </motion.svg>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-beige-400 to-beige-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  />
+                </motion.button>
+              </div>
+              
+              <div className="bg-white/5 rounded-xl p-8 border border-white/10 mb-8">
+                <p className="text-lg text-gray-300 leading-relaxed font-space-grotesk">
+                  Remote communication often lacks the social cues that make in-person interactions engaging. This project investigates how robotic gestures can improve engagement, comfort, and social presence in virtual meetings.
+                </p>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Role & Tools */}
+          <motion.section 
+            className="mb-24"
+            style={{ y: textY }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+                Role & Tools
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-2xl font-semibold font-orbitron text-white mb-4">Role</h3>
+                  <p className="text-gray-300 font-space-grotesk">UX Researcher & Human-Robot Interaction Designer</p>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-2xl font-semibold font-orbitron text-white mb-4">Tools</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-gray-300 font-space-grotesk">UFactory xArm robotic arm</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-gray-300 font-space-grotesk">Zoom</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-gray-300 font-space-grotesk">VS Code</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10 mt-8">
+                <h3 className="text-2xl font-semibold font-orbitron text-white mb-4">Collaboration</h3>
+                <p className="text-gray-300 font-space-grotesk">Worked with a robotics engineer to implement gestures</p>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Approach */}
+          <motion.section 
+            className="mb-24"
+            style={{ y: textY }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+                Approach
+              </h2>
+              
+              <div className="space-y-6">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Gesture Design</h3>
+                  <p className="text-gray-300 font-space-grotesk">Designed robotic gestures to mirror natural human movements.</p>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Pilot Study</h3>
+                  <p className="text-gray-300 font-space-grotesk">Conducted a pilot study with 4 participants using a Wizard of Oz setup to control the robot in real time.</p>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Data Collection</h3>
+                  <p className="text-gray-300 font-space-grotesk">Collected qualitative and quantitative feedback via group debrief and surveys.</p>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Key Design Considerations */}
+          <motion.section 
+            className="mb-24"
+            style={{ y: textY }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+                Key Design Considerations
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Ergonomics</h3>
+                  <p className="text-gray-300 font-space-grotesk">Gestures positioned at natural human heights (handshake/fist bump at chest, high five at head, wave slightly higher).</p>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Safety</h3>
+                  <p className="text-gray-300 font-space-grotesk">Robot moves slowly; handshake grip kept light to avoid pinching.</p>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Social Presence</h3>
+                  <p className="text-gray-300 font-space-grotesk">Synchronization with on-screen researcher to reinforce telepresence.</p>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Intuitiveness</h3>
+                  <p className="text-gray-300 font-space-grotesk">Multi-step gestures broken into clear phases for smooth interaction.</p>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Findings & Insights */}
+          <motion.section 
+            className="mb-24"
+            style={{ y: textY }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+                Findings & Insights
+              </h2>
+              
+              <div className="space-y-6">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Trust Building</h3>
+                  <p className="text-gray-300 font-space-grotesk">Consistent gestures build trust and reduce awkwardness.</p>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Naturalness</h3>
+                  <p className="text-gray-300 font-space-grotesk">Adaptive gesture speed and responsiveness can improve perceived naturalness.</p>
+                </div>
+                
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Applications</h3>
+                  <p className="text-gray-300 font-space-grotesk">Potential applications: professional meetings, virtual classrooms, telemedicine, and remote assistance.</p>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Visuals */}
+          <motion.section 
+            className="mb-24"
+            style={{ y: textY }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+                Visuals
+              </h2>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left side - Vertical image */}
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 text-center">
+                  <div className="w-full rounded-lg overflow-hidden mb-4">
+                    <img
+                      src={`${import.meta.env.BASE_URL}images/robotic-gestures/setup.JPG`}
+                      alt="Figure 1: Robotic arm setup relative to participant and laptop"
+                      className="w-full h-auto object-contain rounded-lg"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                    <div className="w-full h-64 bg-gray-600 rounded-lg flex items-center justify-center" style={{display: 'none'}}>
+                      <span className="text-gray-400">Figure 1: Robotic arm setup</span>
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold font-orbitron text-white mb-2">Figure 1</h3>
+                  <p className="text-gray-300 font-space-grotesk text-sm">Robotic arm setup relative to participant and laptop</p>
+                </div>
+                
+                {/* Right side - Two horizontal images stacked */}
+                <div className="space-y-8">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 text-center">
+                    <div className="w-full rounded-lg overflow-hidden mb-4">
+                      <img
+                        src={`${import.meta.env.BASE_URL}images/robotic-gestures/moresetup.JPG`}
+                        alt="Figure 2: Additional robotic arm setup and configuration"
+                        className="w-full h-auto object-contain rounded-lg"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="w-full h-64 bg-gray-600 rounded-lg flex items-center justify-center" style={{display: 'none'}}>
+                        <span className="text-gray-400">Figure 2: Additional setup</span>
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-semibold font-orbitron text-white mb-2">Figure 2</h3>
+                    <p className="text-gray-300 font-space-grotesk text-sm">Additional robotic arm setup and configuration</p>
+                  </div>
+                  
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 text-center">
+                    <div className="w-full rounded-lg overflow-hidden mb-4">
+                      <img
+                        src={`${import.meta.env.BASE_URL}images/robotic-gestures/participantreaction.png`}
+                        alt="Figure 3: Example participant reaction to robotic gesture"
+                        className="w-full h-auto object-contain rounded-lg"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="w-full h-64 bg-gray-600 rounded-lg flex items-center justify-center" style={{display: 'none'}}>
+                        <span className="text-gray-400">Figure 3: Participant reaction</span>
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-semibold font-orbitron text-white mb-2">Figure 3</h3>
+                    <p className="text-gray-300 font-space-grotesk text-sm">Example participant reaction to robotic gesture</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Outcome */}
+          <motion.section 
+            className="mb-24"
+            style={{ y: textY }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+                Outcome
+              </h2>
+              
+              <div className="bg-white/5 rounded-xl p-8 border border-white/10">
+                <p className="text-lg text-gray-300 leading-relaxed font-space-grotesk">
+                  Demonstrated that robotic gestures can meaningfully enhance engagement in virtual meetings. Provides actionable insights for future HRI systems in professional and educational remote contexts.
+                </p>
+              </div>
+            </div>
+          </motion.section>
+        </>
+      )}
+
+      {/* Video Modal */}
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoSrc={`${import.meta.env.BASE_URL}images/robotic-gestures/Testing.MOV`}
+        videoType="video/quicktime"
+      />
 
     </ProjectLayout>
   );

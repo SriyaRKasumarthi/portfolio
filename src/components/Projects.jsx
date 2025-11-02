@@ -17,31 +17,6 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      slug: 'ecommerce-app',
-      title: 'E-Commerce Mobile App',
-      category: 'design',
-      description: 'Redesigned shopping experience with focus on accessibility and user flow optimization.',
-      details: 'A comprehensive redesign of a mobile e-commerce application focusing on improving user experience, accessibility, and conversion rates. The project involved extensive user research, wireframing, prototyping, and usability testing.',
-      technologies: ['Figma', 'Principle', 'Sketch', 'InVision'],
-      year: '2024',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/example',
-      image: '/api/placeholder/400/300'
-    },
-    {
-      id: 2,
-      slug: 'healthcare-dashboard',
-      title: 'Healthcare Dashboard',
-      category: 'design',
-      description: 'Complex data visualization interface for medical professionals.',
-      details: 'Designed an intuitive dashboard for healthcare professionals to manage patient data, appointments, and medical records. The interface prioritizes clarity and efficiency in high-stress medical environments.',
-      technologies: ['Figma', 'Adobe XD', 'React', 'D3.js'],
-      year: '2023',
-      liveUrl: 'https://example.com',
-      image: '/api/placeholder/400/300'
-    },
-    {
-      id: 3,
       slug: 'ar-motion-guidance',
       title: 'Designing Visual Encodings for AR Motion',
       fullTitle: 'Investigating Encodings Type and Frame of Reference for Augmented Reality Body Motion Guidance',
@@ -51,10 +26,10 @@ const Projects = () => {
       technologies: ['Augmented Reality', 'Human-Computer Interaction', 'Experimental Design', 'Data Visualization', 'User Study'],
       year: '2025',
       liveUrl: 'https://example.com',
-      image: '/api/placeholder/400/300'
+      image: `${import.meta.env.BASE_URL}images/publications/designing visualencodingsforarmotion.png`
     },
     {
-      id: 4,
+      id: 2,
       slug: 'injury-recovery-ar',
       title: 'Injury Recovery AR Study',
       fullTitle: 'Understanding User Needs for Injury Recovery with Augmented Reality',
@@ -65,10 +40,10 @@ const Projects = () => {
       year: '2025',
       liveUrl: 'https://example.com',
       paperUrl: 'https://0fbd1968-4f2d-4bdb-bce8-e3134bc377d6.filesusr.com/ugd/2e35d5_5b337e2fedf44fa08271f4571a847906.pdf',
-      image: '/api/placeholder/400/300'
+      image: `${import.meta.env.BASE_URL}images/publications/injuryrecoveryarstudy.png`
     },
     {
-      id: 5,
+      id: 3,
       slug: 'physical-therapy-mr',
       title: 'Physical Therapy MR Study',
       fullTitle: 'Understanding Physical Therapy Challenges for Older Adults through Mixed Reality',
@@ -79,34 +54,10 @@ const Projects = () => {
       year: '2025',
       liveUrl: 'https://example.com',
       paperUrl: 'https://arxiv.org/html/2509.14514v1#abstract',
-      image: '/api/placeholder/400/300'
+      image: `${import.meta.env.BASE_URL}images/publications/ptmrstudy.png`
     },
     {
-      id: 6,
-      slug: 'fintech-banking',
-      title: 'Fintech Mobile Banking',
-      category: 'design',
-      description: 'Secure and intuitive banking experience for digital-first users.',
-      details: 'Designed a mobile banking application with a focus on security, accessibility, and user trust. The project involved complex financial workflows and regulatory compliance considerations.',
-      technologies: ['Figma', 'Principle', 'React Native', 'Security'],
-      year: '2024',
-      liveUrl: 'https://example.com',
-      image: '/api/placeholder/400/300'
-    },
-    {
-      id: 7,
-      slug: 'inclusive-mobility-navigation',
-      title: 'Inclusive Mobility Navigation App',
-      category: 'design',
-      description: 'Design an inclusive navigation app with mobility-friendly features for Chapel Hill.',
-      details: 'Designed an inclusive navigation app with mobility-friendly features for Chapel Hill, inspired by Google and Apple Maps. The goal was to enhance accessibility for users with physical disabilities—temporary or permanent—by integrating assistive navigation into widely used platforms.',
-      technologies: ['Figma', 'Whimsical Research Boards', 'Interviews', 'UX Research', 'Wireframing', 'Prototyping', 'Inclusive Design', 'Accessibility', 'Usability Testing'],
-      year: '2024',
-      liveUrl: 'https://example.com',
-      image: '/api/placeholder/400/300'
-    },
-    {
-      id: 8,
+      id: 4,
       slug: 'luminary-ar',
       title: 'Luminary AR',
       category: 'design',
@@ -115,7 +66,31 @@ const Projects = () => {
       technologies: ['Product Design', 'UX Research', 'HCI Research', 'Figma', 'Prototyping', 'User Testing', 'Accessibility', 'AR Design'],
       year: '2024',
       liveUrl: 'https://example.com',
-      image: '/api/placeholder/400/300'
+      image: `${import.meta.env.BASE_URL}images/personas/luminaryhero.jpg`
+    },
+    {
+      id: 5,
+      slug: 'oasis',
+      title: 'Oasis',
+      category: 'design',
+      description: 'An accessible ecosystem of health and wellness products for menopausal people',
+      details: 'Designing an accessible ecosystem of health and wellness products for women navigating menopause. A comprehensive system including ring wearable, phone app, Google Nest integration, and VR relaxation experiences.',
+      technologies: ['UX Research', 'Competitive Analysis', 'Prototyping', 'VR Design', 'Voice Design', 'Wearable Design', 'Design System', 'Logo Design'],
+      year: '2024',
+      liveUrl: 'https://example.com',
+      image: `${import.meta.env.BASE_URL}images/oasis/oasisapp.png`
+    },
+    {
+      id: 6,
+      slug: 'robotic-gestures',
+      title: 'Robotic Gestures for Enhanced Virtual Meetings',
+      category: 'publications',
+      description: 'Exploring how robotic gestures—handshakes, waves, fist bumps, and high fives—can augment web conferencing to enhance social presence, comfort, and engagement.',
+      details: 'Remote communication often lacks the social cues that make in-person interactions engaging. This project investigates how robotic gestures can improve engagement, comfort, and social presence in virtual meetings through a pilot study with 4 participants using a Wizard of Oz setup.',
+      technologies: ['Human-Robot Interaction', 'UX Research', 'Robotics', 'Virtual Meetings', 'Social Presence'],
+      year: '2024',
+      liveUrl: 'https://example.com',
+      image: `${import.meta.env.BASE_URL}images/robotic-gestures/participantreaction.png`
     }
   ];
 
@@ -253,17 +228,25 @@ const Projects = () => {
                   <div className="project-card h-full">
                     {/* Enhanced Project Image */}
                     <div className="h-56 bg-gradient-to-br from-beige-100 to-beige-200 relative overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <motion.div 
-                          className="w-20 h-20 bg-beige-300 rounded-full flex items-center justify-center"
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <span className="text-beige-700 font-bold text-2xl font-orbitron">
-                            {project.title.charAt(0)}
-                          </span>
-                        </motion.div>
-                      </div>
+                      {project.image && project.image !== '/api/placeholder/400/300' ? (
+                        <img 
+                          src={project.image} 
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <motion.div 
+                            className="w-20 h-20 bg-beige-300 rounded-full flex items-center justify-center"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <span className="text-beige-700 font-bold text-2xl font-orbitron">
+                              {project.title.charAt(0)}
+                            </span>
+                          </motion.div>
+                        </div>
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       
                       {/* Hover overlay with project info */}
