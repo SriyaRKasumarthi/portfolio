@@ -9,9 +9,9 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "cp public/.nojekyll dist/.nojekyll && gh-pages -d dist --dotfiles"
   },
-  "homepage": "https://sriyarKasumarthi.github.io/portfolio/",
+  "homepage": "https://sriyarkasumarthi.github.io/portfolio/",
   "dependencies": {
     "framer-motion": "^10.18.0",
     "lucide-react": "^0.545.0",
