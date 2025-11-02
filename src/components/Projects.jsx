@@ -6,6 +6,7 @@ import FilterBar from './FilterBar';
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [isVisible, setIsVisible] = useState(false);
+  const [shouldAnimateIn, setShouldAnimateIn] = useState(false);
   const navigate = useNavigate();
   
   // Obys-style scroll motion
@@ -98,6 +99,7 @@ const Projects = () => {
     activeFilter === 'all' || project.category === activeFilter
   );
 
+  // Intersection Observer for visibility
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -120,18 +122,50 @@ const Projects = () => {
     };
   }, []);
 
+  // Listen for scrollToProjects event to trigger fade-in animation
+  useEffect(() => {
+    const handleScrollToProjects = () => {
+      setShouldAnimateIn(true);
+      // Reset after animation completes
+      setTimeout(() => {
+        setShouldAnimateIn(false);
+      }, 1000);
+    };
+
+    window.addEventListener('scrollToProjects', handleScrollToProjects);
+    
+    return () => {
+      window.removeEventListener('scrollToProjects', handleScrollToProjects);
+    };
+  }, []);
+
   const handleProjectClick = (project) => {
     navigate(`/projects/${project.slug}`);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+        delay: shouldAnimateIn ? 0.2 : 0.1
+      }
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0.3,
-        duration: 0.8
+        delayChildren: shouldAnimateIn ? 0.1 : 0.3,
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   };
@@ -168,6 +202,9 @@ const Projects = () => {
         id="projects-section" 
         className="py-24 px-6 bg-gradient-to-b from-beige-50 to-white relative overflow-hidden -mt-8 pt-8"
         style={{ y: sectionY }}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={shouldAnimateIn ? "visible" : isVisible ? "visible" : "hidden"}
       >
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-30">
@@ -200,7 +237,7 @@ const Projects = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
             variants={containerVariants}
             initial="hidden"
-            animate={isVisible ? "visible" : "hidden"}
+            animate={shouldAnimateIn ? "visible" : isVisible ? "visible" : "hidden"}
           >
             <AnimatePresence mode="wait">
               {filteredProjects.map((project, index) => (

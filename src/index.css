@@ -216,6 +216,19 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
+/* Fade-in section animation */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Smooth transitions for all interactive elements */
 * {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
