@@ -187,7 +187,7 @@ const Intro = () => {
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
-              onClick={() => handleLinkClick(`${import.meta.env.BASE_URL}Resume/resume.pdf`)}
+              onClick={() => handleLinkClick(`${import.meta.env.BASE_URL}Resume/SriyaKasumarthi_resume.pdf`)}
               className="group relative px-10 py-5 bg-white text-beige-600 font-medium rounded-xl border-2 border-beige-300 overflow-hidden shadow-lg hover:shadow-2xl hover:border-beige-500 transition-all duration-500 cursor-hover"
             >
               <span className="relative z-10 flex items-center gap-4 text-lg">
