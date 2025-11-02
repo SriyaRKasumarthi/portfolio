@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
@@ -12,6 +12,11 @@ import Cursor from './components/Cursor';
 
 function App() {
   const location = useLocation();
+
+  // Scroll to top on route change and initial load
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname]);
   
   const pageVariants = {
     initial: { opacity: 0, y: 20, scale: 0.98 },
@@ -47,7 +52,7 @@ function App() {
           initial="initial"
           animate="in"
           exit="out"
-          className="pt-16"
+          className="pt-[3vh] md:pt-[4vh]"
         >
           <Routes location={location}>
             <Route path="/" element={

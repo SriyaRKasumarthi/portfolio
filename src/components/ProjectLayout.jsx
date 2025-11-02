@@ -18,7 +18,7 @@ const ProjectLayout = ({
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section with Parallax Background */}
-      <section className="relative h-[75vh] overflow-hidden pt-16">
+      <section className="relative h-[75vh] min-h-[500px] overflow-hidden pt-24 md:pt-28 lg:pt-32 scroll-mt-24">
         {/* Background Image with Parallax */}
         <motion.div
           className="absolute inset-0"

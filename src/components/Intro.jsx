@@ -62,7 +62,7 @@ const Intro = () => {
   };
 
   return (
-    <section className="h-[85vh] flex items-end justify-start px-6 relative overflow-hidden pb-16">
+    <section className="min-h-screen flex items-end justify-start px-6 relative overflow-hidden pb-20 md:pb-24 pt-[3vh] md:pt-[4vh]">
       {/* Enhanced parallax background */}
       <motion.div 
         className="absolute inset-0 parallax-bg"
@@ -70,7 +70,7 @@ const Intro = () => {
       />
       
       {/* 2025 Modern Portfolio Hero Layout */}
-      <div className="w-full flex items-end justify-start px-16 py-8 z-10">
+      <div className="w-full flex items-end justify-start px-8 md:px-16 py-8 z-10">
         <motion.div
           className="w-full max-w-none"
           variants={containerVariants}
