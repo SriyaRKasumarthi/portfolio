@@ -255,7 +255,7 @@ const Projects = () => {
           <FilterBar activeFilter={activeFilter} onFilterChange={setActiveFilter} />
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6 max-w-7xl mx-auto"
             variants={containerVariants}
             initial="hidden"
             animate={shouldAnimateIn ? "visible" : isVisible ? "visible" : "hidden"}
@@ -269,96 +269,73 @@ const Projects = () => {
                   animate="visible"
                   exit="exit"
                   whileHover={{
-                    y: -12,
-                    scale: 1.03,
-                    rotateY: 2,
+                    y: -4,
                     transition: { 
-                      duration: 0.4, 
+                      duration: 0.25, 
                       ease: [0.16, 1, 0.3, 1]
                     }
                   }}
-                  className="group cursor-pointer cursor-hover"
+                  whileTap={{
+                    scale: 0.98,
+                    transition: { duration: 0.15 }
+                  }}
+                  className="group cursor-pointer cursor-hover min-h-[280px] sm:min-h-[300px]"
                   style={{
                     animationDelay: `${index * 0.1}s`
                   }}
                   onClick={() => handleProjectClick(project)}
                 >
-                  <div className="project-card h-full">
-                    {/* Enhanced Project Image */}
-                    <div className="h-56 bg-gradient-to-br from-beige-100 to-beige-200 relative overflow-hidden">
+                  <article 
+                    className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md border border-gray-100 hover:border-beige-200/60 transition-all duration-300 flex flex-col h-full"
+                    aria-label={`View ${project.title} case study`}
+                  >
+                    {/* Thumbnail - 40-50% of card height */}
+                    <div className="relative h-[140px] sm:h-[160px] md:h-[180px] lg:h-[200px] bg-gradient-to-br from-beige-100 to-beige-200 overflow-hidden flex-shrink-0">
                       {project.image && project.image !== '/api/placeholder/400/300' ? (
                         <img 
                           src={project.image} 
-                          alt={project.title}
-                          className="w-full h-full object-cover"
+                          alt={`${project.title} thumbnail`}
+                          className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300 ease-out"
                           loading="lazy"
                           decoding="async"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <motion.div 
-                            className="w-20 h-20 bg-beige-300 rounded-full flex items-center justify-center"
-                            whileHover={{ scale: 1.1, rotate: 5 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <span className="text-beige-700 font-bold text-2xl font-orbitron">
+                          <div className="w-16 h-16 bg-beige-300 rounded-full flex items-center justify-center">
+                            <span className="text-beige-700 font-bold text-xl font-orbitron">
                               {project.title.charAt(0)}
                             </span>
-                          </motion.div>
+                          </div>
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
-                      {/* Hover overlay with project info */}
-                      <div className="absolute inset-0 bg-beige-500/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                        <motion.div
-                          className="text-white text-center"
-                          initial={{ opacity: 0, y: 20 }}
-                          whileHover={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <p className="text-sm font-medium">Click to view details</p>
-                        </motion.div>
-                      </div>
                     </div>
                     
-                    {/* Enhanced Project Content */}
-                    <div className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-medium text-beige-600 uppercase tracking-wider bg-beige-100 px-3 py-1.5 rounded-full">
+                    {/* Content Section - 50-60% of card height */}
+                    <div className="p-4 md:p-5 flex-1 flex flex-col">
+                      {/* Category Badge & Year */}
+                      <div className="flex items-center justify-between mb-2.5">
+                        <span 
+                          className="text-[10px] sm:text-xs font-medium text-beige-600 uppercase tracking-wide bg-beige-50 px-2.5 py-1 rounded-full"
+                          aria-label={`Category: ${project.category}`}
+                        >
                           {project.category}
                         </span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-[10px] sm:text-xs text-gray-400 font-medium">
                           {project.year}
                         </span>
                       </div>
-                      <h3 className="text-xl font-semibold font-space-grotesk text-text mb-3 group-hover:text-beige-600 transition-colors duration-300">
+                      
+                      {/* Title */}
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold font-space-grotesk text-text mb-2 group-hover:text-beige-600 transition-colors duration-300 leading-snug line-clamp-2">
                         {project.title}
                       </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                      
+                      {/* One-line Tagline */}
+                      <p className="text-sm md:text-[15px] text-gray-600 leading-relaxed line-clamp-1 mt-auto">
                         {project.description}
                       </p>
-                      
-                      {/* Technology tags */}
-                      {project.technologies && (
-                        <div className="flex flex-wrap gap-1 mb-4">
-                          {project.technologies.slice(0, 3).map((tech, index) => (
-                            <span
-                              key={index}
-                              className="text-xs px-2 py-1 bg-beige-50 text-beige-600 rounded-full"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                          {project.technologies.length > 3 && (
-                            <span className="text-xs px-2 py-1 bg-beige-50 text-beige-600 rounded-full">
-                              +{project.technologies.length - 3}
-                            </span>
-                          )}
-                        </div>
-                      )}
                     </div>
-                  </div>
+                  </article>
                 </motion.div>
               ))}
             </AnimatePresence>
