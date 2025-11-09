@@ -75,7 +75,10 @@ const Intro = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-end justify-start px-6 relative overflow-hidden pb-20 md:pb-24 pt-[3vh] md:pt-[4vh]">
+    <section
+      className="min-h-screen flex items-end justify-start px-6 relative overflow-hidden pb-20 md:pb-24 pt-[3vh] md:pt-[4vh]"
+      data-disable-parallax="true"
+    >
       {/* Enhanced parallax background */}
       <motion.div 
         className="absolute inset-0 parallax-bg will-change-transform"

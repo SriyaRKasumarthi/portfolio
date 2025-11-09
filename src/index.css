@@ -21,15 +21,24 @@ body {
   color: #2A2A2A;
   min-height: 100vh;
   overflow-x: hidden;
-  cursor: none; /* Hide default cursor */
-  /* Prevent flickering on mobile */
   -webkit-overflow-scrolling: touch;
-  transform: translateZ(0);
-  backface-visibility: hidden;
 }
 
 /* Show cursor on interactive elements */
 button, a, [role="button"], input, textarea, select {
+  cursor: auto;
+}
+
+.custom-cursor-active {
+  cursor: none;
+}
+
+body.custom-cursor-active button,
+body.custom-cursor-active a,
+body.custom-cursor-active [role="button"],
+body.custom-cursor-active input,
+body.custom-cursor-active textarea,
+body.custom-cursor-active select {
   cursor: auto;
 }
 
@@ -58,11 +67,6 @@ html {
 
 /* Optimize scroll performance on mobile */
 @media (max-width: 768px) {
-  * {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-  
   /* Reduce parallax intensity on mobile */
   .parallax-bg {
     animation: none;
@@ -72,35 +76,17 @@ html {
   [data-framer-component] {
     contain: layout style paint;
   }
-}
-
-/* Prevent layout shifts */
-img {
-  content-visibility: auto;
-}
-
-/* GPU acceleration for scroll-based animations */
-.will-change-transform {
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-/* Optimize images for better scroll performance */
-img {
-  content-visibility: auto;
-}
-
-/* Mobile-specific optimizations - disable complex animations */
-@media (max-width: 768px) {
-  /* Disable parallax transforms on mobile */
-  [style*="y:"] {
+  
+  /* Disable parallax transforms on mobile (target only marked elements) */
+  [data-disable-parallax="true"] [style*="y:"],
+  [data-disable-parallax="true"].parallax-bg,
+  .parallax-freeze-mobile [style*="y:"] {
     transform: none !important;
   }
-  
-  /* Prevent flickering by using simpler rendering */
-  * {
+
+  /* Keep parallax layers GPU-accelerated without affecting everything */
+  .parallax-bg,
+  .will-change-transform {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }

@@ -222,6 +222,7 @@ const Projects = () => {
         variants={sectionVariants}
         initial="hidden"
         animate={shouldAnimateIn ? "visible" : isVisible ? "visible" : "hidden"}
+        data-disable-parallax="true"
       >
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-30">

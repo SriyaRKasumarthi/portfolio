@@ -13,44 +13,77 @@ const Cursor = () => {
     isTouchDevice.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   }, []);
 
+  // Manage custom cursor body class
+  useEffect(() => {
+    if (isTouchDevice.current) return;
+    document.body.classList.add('custom-cursor-active');
+    return () => {
+      document.body.classList.remove('custom-cursor-active');
+    };
+  }, []);
+
   // Desktop cursor effect (only for non-touch devices)
   useEffect(() => {
     // Skip desktop cursor setup if touch device
     if (isTouchDevice.current) return;
 
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    let animationFrame;
+
+    const updatePosition = (event) => {
+      cancelAnimationFrame(animationFrame);
+      const { clientX, clientY } = event;
+      animationFrame = requestAnimationFrame(() => {
+        setMousePosition({ x: clientX, y: clientY });
+        setIsVisible(true);
+      });
+    };
+
+    const handleMouseMove = (event) => {
+      updatePosition(event);
+    };
+
+    const handleMouseEnterDocument = () => {
       setIsVisible(true);
     };
 
-    const handleMouseEnter = (e) => {
-      setIsHovering(true);
-    };
-    
-    const handleMouseLeave = (e) => {
-      setIsHovering(false);
-    };
-
-    const handleMouseOut = () => {
-      setIsVisible(false);
+    const handleMouseLeaveDocument = (event) => {
+      if (!event.relatedTarget || event.relatedTarget.nodeName === 'HTML') {
+        setIsVisible(false);
+        setIsHovering(false);
+      }
     };
 
-    // Add event listeners to interactive elements
-    const interactiveElements = document.querySelectorAll('button, a, [role="button"], .cursor-hover');
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
+    const handleHoverEnter = () => setIsHovering(true);
+    const handleHoverLeave = () => setIsHovering(false);
 
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseOut);
+    const interactiveSelectors = 'button, a, [role="button"], .cursor-hover';
+    const addHoverListeners = () => {
+      document.querySelectorAll(interactiveSelectors).forEach((el) => {
+        el.addEventListener('mouseenter', handleHoverEnter);
+        el.addEventListener('mouseleave', handleHoverLeave);
+      });
+    };
+
+    addHoverListeners();
+
+    const observer = new MutationObserver(addHoverListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('mouseenter', handleMouseEnterDocument);
+    document.addEventListener('mouseleave', handleMouseLeaveDocument);
+    window.addEventListener('blur', handleMouseLeaveDocument);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseOut);
-      interactiveElements.forEach(el => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
+      cancelAnimationFrame(animationFrame);
+      observer.disconnect();
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseenter', handleMouseEnterDocument);
+      document.removeEventListener('mouseleave', handleMouseLeaveDocument);
+      window.removeEventListener('blur', handleMouseLeaveDocument);
+      document.querySelectorAll(interactiveSelectors).forEach((el) => {
+        el.removeEventListener('mouseenter', handleHoverEnter);
+        el.removeEventListener('mouseleave', handleHoverLeave);
       });
     };
   }, []);
