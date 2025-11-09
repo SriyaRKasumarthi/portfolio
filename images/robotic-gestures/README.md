@@ -21,3 +21,5 @@ Please replace these placeholder files with the actual images:
 - Figures 1 & 2: Side-by-side in 2-column grid
 - Figure 3: Full width spanning both columns
 - All images include fallback placeholders if loading fails
+
+
