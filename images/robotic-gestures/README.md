@@ -23,3 +23,5 @@ Please replace these placeholder files with the actual images:
 - All images include fallback placeholders if loading fails
 
 
+
+
