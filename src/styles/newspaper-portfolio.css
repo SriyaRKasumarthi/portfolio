@@ -1473,6 +1473,59 @@
     width: 100%;
     max-width: 100%;
     overflow-x: clip;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  /* Prevent long words / URLs from breaking layout */
+  .legacy-case-study-root .case-legacy-content p,
+  .legacy-case-study-root .case-legacy-content li,
+  .legacy-case-study-root .case-legacy-content td,
+  .legacy-case-study-root .case-legacy-content th {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+  }
+
+  .legacy-case-study-root .case-legacy-content h1,
+  .legacy-case-study-root .case-legacy-content h2,
+  .legacy-case-study-root .case-legacy-content h3,
+  .legacy-case-study-root .case-legacy-content h4 {
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: manual;
+    max-width: 100%;
+  }
+
+  .legacy-case-study-root .case-legacy-content .grid > * {
+    min-width: 0;
+  }
+
+  .legacy-case-study-root .case-legacy-content li.flex > span:last-child {
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow-wrap: break-word;
+  }
+
+  .legacy-case-study-root .case-legacy-content .case-pull {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    hyphens: auto;
+    padding: clamp(14px, 4vw, 28px) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-wrap: pretty !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .case-study-tech-chips > span {
+    max-width: min(100%, 22rem);
+    text-align: center;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    box-sizing: border-box;
   }
 
   .legacy-case-study-root .case-legacy-content .font-orbitron,
@@ -1575,13 +1628,18 @@
   }
 
   .legacy-case-study-root .case-legacy-content a.inline-flex,
-  .legacy-case-study-root .case-legacy-content a[class*="inline-flex"] {
+  .legacy-case-study-root .case-legacy-content a[class*="inline-flex"],
+  .legacy-case-study-root .case-legacy-content button.inline-flex {
     font-family: var(--mono) !important;
     text-transform: uppercase !important;
     letter-spacing: 0.12em !important;
     font-size: 11px !important;
     font-weight: 600 !important;
     font-style: normal !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal !important;
+    overflow-wrap: break-word;
   }
 
   /* Case study shell: left-aligned masthead, no horizontal bleed */
@@ -1594,7 +1652,7 @@
     max-width: min(980px, 100%);
     margin-inline: auto;
     box-sizing: border-box;
-    padding-inline: clamp(0px, 2.5vw, 16px);
+    padding-inline: clamp(8px, 3vw, 20px);
     overflow-x: clip;
   }
   .legacy-case-study-root .case-eyebrow {
@@ -1685,6 +1743,8 @@
   .legacy-case-study-root .publication-case-study .publication-process-item {
     padding: 10px 0 10px 18px;
     border-left: 3px solid var(--burgundy);
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
   .legacy-case-study-root .publication-case-study .publication-figures-grid h3 {
     font-family: var(--serif-display);
@@ -1751,6 +1811,7 @@
     border-left: 3px solid var(--burgundy);
     margin: 0;
     text-align: left;
+    min-width: 0;
   }
   .legacy-case-study-root .oasis-case-study .oasis-discovery-pull.case-pull {
     color: var(--ink-2);
@@ -1785,6 +1846,9 @@
   .legacy-case-study-root .oasis-case-study .oasis-tile-grid {
     align-items: stretch;
   }
+  .legacy-case-study-root .oasis-case-study .oasis-tile-grid > * {
+    min-width: 0;
+  }
   .legacy-case-study-root .oasis-case-study .oasis-tile-title {
     font-family: var(--serif-display);
     font-weight: 700;
@@ -1792,6 +1856,8 @@
     padding-left: 14px;
     border-left: 3px solid var(--burgundy);
     line-height: 1.35;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
   .legacy-case-study-root .oasis-case-study .oasis-lesson {
     position: relative;
@@ -1814,8 +1880,11 @@
       gap: 4px;
     }
     .legacy-case-study-root .case-body.case-legacy-content {
-      padding-left: clamp(2px, 3vw, 12px);
-      padding-right: clamp(2px, 3vw, 12px);
+      padding-left: clamp(12px, 4vw, 20px);
+      padding-right: clamp(12px, 4vw, 20px);
+    }
+    .legacy-case-study-root .case-legacy-content .mb-24 {
+      margin-bottom: clamp(4.5rem, 12vw, 6.5rem) !important;
     }
     .legacy-case-study-root .case-legacy-content .grid {
       grid-template-columns: 1fr !important;

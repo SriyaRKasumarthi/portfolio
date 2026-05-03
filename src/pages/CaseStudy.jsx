@@ -73,7 +73,7 @@ function PublicationCaseStudyBody({ project, projectSlug, textY }) {
     <div className="publication-case-study">
       {pull ? (
         <motion.section className="mb-24" style={{ y: textY }}>
-          <div className="max-w-4xl mx-auto text-left">
+          <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
             <aside className="case-pull publication-pull">
               <p className="m-0">
                 <span className="about-quote" aria-hidden="true">
@@ -91,7 +91,7 @@ function PublicationCaseStudyBody({ project, projectSlug, textY }) {
       ) : null}
 
       <motion.section className="mb-24" style={{ y: textY }}>
-        <div className="max-w-4xl mx-auto text-left">
+        <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
           <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Challenges</h2>
           <div className="publication-section-rule mb-10">
             <Rule kind="thin" />
@@ -110,7 +110,7 @@ function PublicationCaseStudyBody({ project, projectSlug, textY }) {
       </motion.section>
 
       <motion.section className="mb-24" style={{ y: textY }}>
-        <div className="max-w-4xl mx-auto text-left">
+        <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
           <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Process</h2>
           <div className="publication-section-rule mb-10">
             <Rule kind="thin" />
@@ -135,7 +135,7 @@ function PublicationCaseStudyBody({ project, projectSlug, textY }) {
       </motion.section>
 
       <motion.section className="mb-24" style={{ y: textY }}>
-        <div className="max-w-4xl mx-auto text-left">
+        <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
           <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Results</h2>
           <div className="publication-section-rule mb-10">
             <Rule kind="thin" />
@@ -155,7 +155,7 @@ function PublicationCaseStudyBody({ project, projectSlug, textY }) {
 
       {images.length > 0 ? (
         <motion.section className="mb-24" style={{ y: textY }}>
-          <div className="max-w-4xl mx-auto text-left">
+          <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
             <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Figures</h2>
             <div className="publication-section-rule mb-10">
               <Rule kind="thin" />
@@ -164,7 +164,7 @@ function PublicationCaseStudyBody({ project, projectSlug, textY }) {
               {images.map((fig) => (
                 <div
                   key={`${fig.title}-${fig.description}`}
-                  className="bg-white/5 rounded-xl p-6 border border-white/10 text-left"
+                  className="bg-white/5 rounded-xl p-6 border border-white/10 text-left min-w-0"
                 >
                   <h3 className="text-lg font-semibold text-white mb-2">{fig.title}</h3>
                   <p className="text-gray-300 text-sm leading-relaxed m-0">{fig.description}</p>
@@ -478,7 +478,7 @@ const CaseStudy = () => {
           ...(isMobile ? {} : { y: textY })
         }}
       >
-        <div className="max-w-4xl mx-auto text-left">
+        <div className="max-w-4xl mx-auto w-full min-w-0 text-left px-1 sm:px-0">
           <p className="text-lg text-gray-300 leading-relaxed mb-12">
             {project.description}
           </p>
@@ -604,7 +604,7 @@ const CaseStudy = () => {
           </div>
           
           {/* Project Details Grid */}
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8 mb-12">
             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="text-sm font-medium text-gray-400 mb-2">Year</h3>
               <p className="text-xl font-semibold text-white">{project.year}</p>
@@ -636,10 +636,11 @@ const CaseStudy = () => {
           ...(isMobile ? {} : { y: textY })
         }}
       >
+        <div className="max-w-4xl mx-auto w-full min-w-0 px-2 sm:px-0">
         <h3 className="text-3xl font-bold font-orbitron text-white mb-8 text-center">
           Technologies Used
         </h3>
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="case-study-tech-chips flex flex-wrap justify-center gap-3 sm:gap-4">
           {project.technologies.map((tech, index) => (
             <motion.span
               key={index}
@@ -652,6 +653,7 @@ const CaseStudy = () => {
             </motion.span>
           ))}
         </div>
+        </div>
       </motion.section>
 
       {/* Project-Specific Sections for Luminary AR */}
@@ -662,7 +664,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Overview
               </h2>
@@ -705,7 +707,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Discovery
               </h2>
@@ -798,7 +800,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Personas
               </h2>
@@ -887,7 +889,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Key Features
               </h2>
@@ -944,7 +946,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Ideation & Prototyping
               </h2>
@@ -1057,7 +1059,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 User Evaluation
               </h2>
@@ -1065,8 +1067,8 @@ const CaseStudy = () => {
                 <Rule kind="thin" />
               </div>
               
-              <div className="grid md:grid-cols-2 gap-12 mb-8">
-                <div>
+              <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-8">
+                <div className="min-w-0">
                   <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
                     Round 1 (Wizard of Oz)
                   </h3>
@@ -1110,7 +1112,7 @@ const CaseStudy = () => {
                   </ul>
                 </div>
                 
-                <div>
+                <div className="min-w-0">
                   <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
                     Round 2 (Interactive Prototype)
                   </h3>
@@ -1148,49 +1150,49 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Final Design
               </h2>
               <div className="luminary-section-rule mb-10">
                 <Rule kind="thin" />
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                   <h3 className="text-lg font-semibold text-white mb-3">Sign In</h3>
                   <p className="text-gray-300 text-sm">Google sign-in, profile creation for personalization</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                   <h3 className="text-lg font-semibold text-white mb-3">Profile Customization</h3>
                   <p className="text-gray-300 text-sm">Accessibility settings, route history, audio/visual aids</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                   <h3 className="text-lg font-semibold text-white mb-3">Street View Planning</h3>
                   <p className="text-gray-300 text-sm">Assess route pain points via images and AR warnings</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                   <h3 className="text-lg font-semibold text-white mb-3">Location Details</h3>
                   <p className="text-gray-300 text-sm">Annotated building accessibility information</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                   <h3 className="text-lg font-semibold text-white mb-3">Directions with Stars</h3>
                   <p className="text-gray-300 text-sm">Segment-based accessibility ratings</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                   <h3 className="text-lg font-semibold text-white mb-3">Edit Route</h3>
                   <p className="text-gray-300 text-sm">Modify routes based on obstacles and share custom paths</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                   <h3 className="text-lg font-semibold text-white mb-3">Navigation Go</h3>
                   <p className="text-gray-300 text-sm">AR-guided navigation with alternative route options</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                   <h3 className="text-lg font-semibold text-white mb-3">Route Rating</h3>
                   <p className="text-gray-300 text-sm">Post-route feedback system with comments, tags, and star ratings</p>
                 </div>
               </div>
-                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
-                  <div className="w-full rounded-lg overflow-hidden">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left min-w-0">
+                  <div className="w-full min-w-0 rounded-lg overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/annotatedfigmamockup.png`}
                       alt="Annotated Figma mockups of all 8 screens"
@@ -1278,7 +1280,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Conclusion & Next Steps
               </h2>
@@ -1327,7 +1329,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Overview
               </h2>
@@ -1514,7 +1516,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Discovery
               </h2>
@@ -1587,7 +1589,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 System Overview & Prototypes
               </h2>
@@ -1600,19 +1602,19 @@ const CaseStudy = () => {
                   4-Part Ecosystem
                 </h3>
                 <div className="grid md:grid-cols-2 gap-8">
-                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                     <h4 className="text-xl font-semibold text-white mb-4">Ring Wearable</h4>
                     <p className="text-gray-300">Monitors physiological changes</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                     <h4 className="text-xl font-semibold text-white mb-4">Phone App</h4>
                     <p className="text-gray-300">Symptom tracking, advice, community</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                     <h4 className="text-xl font-semibold text-white mb-4">Google Nest</h4>
                     <p className="text-gray-300">Voice Assistant, Accessibility</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 min-w-0">
                     <h4 className="text-xl font-semibold text-white mb-4">Virtual Reality</h4>
                     <p className="text-gray-300">Immersive relaxation</p>
                   </div>
@@ -1625,8 +1627,8 @@ const CaseStudy = () => {
                 </h3>
                 
                 <div className="grid md:grid-cols-2 gap-8">
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
-                    <div className="w-full rounded-lg overflow-hidden">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left min-w-0">
+                    <div className="w-full min-w-0 rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/oasis/oasisapp.png`}
                         alt="Oasis Phone App Prototype"
@@ -1644,8 +1646,8 @@ const CaseStudy = () => {
                     <p className="text-gray-300 text-sm mt-2">Mobile application for symptom tracking and community support</p>
                   </div>
                   
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
-                    <div className="w-full rounded-lg overflow-hidden">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left min-w-0">
+                    <div className="w-full min-w-0 rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/oasis/oasisvr.png`}
                         alt="Oasis VR App Design"
@@ -1663,8 +1665,8 @@ const CaseStudy = () => {
                     <p className="text-gray-300 text-sm mt-2">Immersive relaxation and wellness experiences</p>
                   </div>
                   
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left md:col-span-2">
-                    <div className="w-full rounded-lg overflow-hidden">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left min-w-0 md:col-span-2">
+                    <div className="w-full min-w-0 rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/oasis/oasisring.png`}
                         alt="Oasis Ring Design"
@@ -1691,7 +1693,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 UX Design Goals
               </h2>
@@ -1724,7 +1726,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Key Features
               </h2>
@@ -1760,7 +1762,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Lessons Learned
               </h2>
@@ -1798,7 +1800,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Overview
               </h2>
@@ -1880,7 +1882,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Role & Tools
               </h2>
@@ -1925,7 +1927,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Approach
               </h2>
@@ -1957,7 +1959,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Key Design Considerations
               </h2>
@@ -1994,7 +1996,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Findings & Insights
               </h2>
@@ -2026,7 +2028,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Visuals
               </h2>
@@ -2104,7 +2106,7 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto text-left">
+            <div className="max-w-4xl mx-auto w-full min-w-0 text-left">
               <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Outcome
               </h2>
