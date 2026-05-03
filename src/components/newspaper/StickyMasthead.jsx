@@ -9,15 +9,45 @@ export default function StickyMasthead() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 4);
+    const getScrollTop = () =>
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    const onScroll = () => setScrolled(getScrollTop() > 0);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('scroll', onScroll, { capture: true });
+    };
   }, []);
 
+  useEffect(() => {
+    const top =
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    setScrolled(top > 0);
+  }, [pathname]);
+
+  const dynamicHeaderVars = {
+    '--stickymast-alpha': scrolled ? 0.86 : 1,
+    '--stickymast-border-alpha': scrolled ? 0.18 : 0,
+    '--stickymast-shadow-alpha': scrolled ? 0.48 : 0,
+    '--stickymast-blur': scrolled ? '12px' : '0px',
+    '--stickymast-sat': scrolled ? '150%' : '100%',
+  };
+
   return (
-    <div className={`stickymast ${scrolled ? 'is-scrolled' : ''}`}>
-      <div className="sm-inner" style={{ opacity: '1' }}>
+    <div
+      className={`stickymast ${scrolled ? 'is-scrolled' : ''}`}
+      data-scrolled={scrolled ? '1' : '0'}
+      style={dynamicHeaderVars}
+    >
+      <div className="sm-inner">
         <Link to="/" className="sm-name">
           {SITE.name}
         </Link>

@@ -96,12 +96,9 @@ function PublicationCaseStudyBody({ project, projectSlug, textY }) {
           <div className="publication-section-rule mb-10">
             <Rule kind="thin" />
           </div>
-          <ul className="publication-bullets space-y-3 list-none p-0 m-0">
+          <ul className="case-study-bullet-list publication-bullets space-y-3 list-none p-0 m-0">
             {challenges.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <span className="mt-2 flex-shrink-0 font-semibold text-[var(--burgundy)]" aria-hidden>
-                  —
-                </span>
+              <li key={item}>
                 <span className="text-gray-300 leading-relaxed">{item}</span>
               </li>
             ))}
@@ -140,12 +137,9 @@ function PublicationCaseStudyBody({ project, projectSlug, textY }) {
           <div className="publication-section-rule mb-10">
             <Rule kind="thin" />
           </div>
-          <ul className="publication-bullets space-y-3 list-none p-0 m-0">
+          <ul className="case-study-bullet-list publication-bullets space-y-3 list-none p-0 m-0">
             {results.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <span className="mt-2 flex-shrink-0 font-semibold text-[var(--burgundy)]" aria-hidden>
-                  —
-                </span>
+              <li key={item}>
                 <span className="text-gray-300 leading-relaxed">{item}</span>
               </li>
             ))}
@@ -463,10 +457,18 @@ const CaseStudy = () => {
   const project = getProjectData(projectSlug);
   const meta = projectBySlug(projectSlug);
 
+  /* Masthead: short name from projects grid (PROJECTS) + long formal title from case data */
+  const mastheadShortTitle = meta?.title ?? project.title;
+  const mastheadLongLine =
+    project.title && project.title !== mastheadShortTitle
+      ? project.title
+      : (project.subtitle || meta?.deck || '').trim();
+  const mastheadSubtitle = mastheadLongLine.length > 0 ? mastheadLongLine : undefined;
+
   return (
     <NewspaperProjectLayout
-      title={project.title}
-      subtitle={project.subtitle}
+      title={mastheadShortTitle}
+      subtitle={mastheadSubtitle}
       categoryLabel={meta?.category || 'Project'}
       year={project.year}
       heroImage={meta?.image}
@@ -722,17 +724,14 @@ const CaseStudy = () => {
                 <p className="text-lg text-gray-300 leading-relaxed mb-6">
                   Accessibility issues at UNC have real consequences:
                 </p>
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0" />
+                <ul className="case-study-bullet-list space-y-4 mb-8">
+                  <li>
                     <span className="text-gray-300">In 2022, a student was trapped on a dorm's fourth floor for 36 hours due to a failed elevator.</span>
                   </li>
-                  <li className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0" />
+                  <li>
                     <span className="text-gray-300">In 2023, another student was stranded in the Hanes Art Center.</span>
                   </li>
-                  <li className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0" />
+                  <li>
                     <span className="text-gray-300">Students often encounter inaccessible classrooms, office hours, and events.</span>
                   </li>
                 </ul>
@@ -764,11 +763,11 @@ const CaseStudy = () => {
                   We conducted interviews with two students with mobility impairments:
                 </p>
                 <div className="grid md:grid-cols-2 gap-8 mb-8">
-                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                     <h4 className="text-xl font-semibold text-white mb-3">Participant A</h4>
                     <p className="text-gray-300 text-sm mb-4">Experienced wheelchair and walker user, service animal handler, deeply involved in accessibility advocacy.</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                  <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                     <h4 className="text-xl font-semibold text-white mb-3">Participant C</h4>
                     <p className="text-gray-300 text-sm mb-4">Long-term wheelchair user, accessibility researcher, leader of Project Luminary.</p>
                   </div>
@@ -776,17 +775,14 @@ const CaseStudy = () => {
                 
                 <div className="mb-8">
                   <h4 className="text-xl font-semibold text-white mb-4">Key insights:</h4>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <ul className="case-study-bullet-list space-y-3">
+                    <li>
                       <span className="text-gray-300"><strong>A:</strong> Routing is about respect; trial-and-error and word-of-mouth dominate navigation. Users are reluctant to report obstacles.</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300"><strong>C:</strong> Accessibility should be inclusive for all impairments. Systems should be intuitive, visually accessible, and measure obstacles objectively.</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300">Routing tasks highlighted challenges: both relied heavily on Google Maps AR but struggled with the last 100-foot problem, insufficient detail at the end of routes.</span>
                     </li>
                   </ul>
@@ -897,27 +893,27 @@ const CaseStudy = () => {
                 <Rule kind="thin" />
               </div>
               <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="min-w-0 bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Accessibility Info</h3>
                   <p className="text-gray-300 text-sm">Visual and verbal route information</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="min-w-0 bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Rating System</h3>
                   <p className="text-gray-300 text-sm">1-5 star ratings for routes and locations</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="min-w-0 bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Community Support</h3>
                   <p className="text-gray-300 text-sm">Live chats and route reviews</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="min-w-0 bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Personalization</h3>
                   <p className="text-gray-300 text-sm">Customized experience for individual needs</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="min-w-0 bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Quick Settings</h3>
                   <p className="text-gray-300 text-sm">Accessibility toggles and preferences</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="min-w-0 bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">AR Navigation</h3>
                   <p className="text-gray-300 text-sm">Guided navigation with alternative routes</p>
                 </div>
@@ -956,11 +952,11 @@ const CaseStudy = () => {
               
               <div className="space-y-12">
                 <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">Prototype 1</h3>
                     <p className="text-gray-300 leading-relaxed">Initial accessibility overlay on Google Maps with basic rating system and toggle settings.</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
+                  <div className="min-w-0 bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                     <div className="w-full rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/prototype1.png`}
@@ -979,7 +975,7 @@ const CaseStudy = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div className="order-2 md:order-1">
+                  <div className="order-2 md:order-1 min-w-0">
                     <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                       <div className="w-full rounded-lg overflow-hidden">
                         <img 
@@ -997,18 +993,18 @@ const CaseStudy = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="order-1 md:order-2">
+                  <div className="order-1 md:order-2 min-w-0">
                     <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">Prototype 2</h3>
                     <p className="text-gray-300 leading-relaxed">Customizable menu layouts with obstacle selection for personalized routing.</p>
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">Prototype 3</h3>
                     <p className="text-gray-300 leading-relaxed">Advanced routing with pre-search options, detailed settings, and dynamic assistance features.</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
+                  <div className="min-w-0 bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                     <div className="w-full rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/prototype3.png`}
@@ -1027,7 +1023,7 @@ const CaseStudy = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div className="order-2 md:order-1">
+                  <div className="order-2 md:order-1 min-w-0">
                     <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                       <div className="w-full rounded-lg overflow-hidden">
                         <img 
@@ -1045,7 +1041,7 @@ const CaseStudy = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="order-1 md:order-2">
+                  <div className="order-1 md:order-2 min-w-0">
                     <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">Final Prototype</h3>
                     <p className="text-gray-300 leading-relaxed">Combined features with AR view, scale indicators, and enhanced clarity for comprehensive navigation.</p>
                   </div>
@@ -1075,38 +1071,31 @@ const CaseStudy = () => {
                   <p className="text-gray-300 leading-relaxed mb-4">
                     Participants evaluated functionality screen by screen:
                   </p>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <ul className="case-study-bullet-list space-y-3">
+                    <li>
                       <span className="text-gray-300"><strong>Screen 1:</strong> Familiar Google Maps-style layout; quick settings appreciated.</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300"><strong>Screen 2:</strong> Mixed feedback on accessibility vs speed options; suggestion to explore inclusive shading options.</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300"><strong>Screen 3:</strong> Ratings system understood, color accessibility noted as an issue.</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300"><strong>Screen 4:</strong> Toggle accessibility criticized; landmark-based routing suggested.</span>
                     </li>
                   </ul>
                   <div className="luminary-eval-split-rule my-6">
                     <Rule kind="thin" />
                   </div>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <ul className="case-study-bullet-list space-y-3">
+                    <li>
                       <span className="text-gray-300"><strong>Screen 5:</strong> Ratings and comments useful; thumbs up/down redundant.</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300"><strong>Screen 6:</strong> AR markers understood; visual improvements recommended.</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300"><strong>Screen 7:</strong> Detailed settings praised; decoupling transportation mode suggested.</span>
                     </li>
                   </ul>
@@ -1122,21 +1111,17 @@ const CaseStudy = () => {
                   <p className="text-gray-300 leading-relaxed mb-4">
                     Feedback emphasized:
                   </p>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                  <ul className="case-study-bullet-list space-y-3">
+                    <li>
                       <span className="text-gray-300">Interior building accessibility</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300">Parking and van access</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300">Weather-based obstacle reporting</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300">Validation of star ratings, route customization, and AR visualization</span>
                     </li>
                   </ul>
@@ -1297,21 +1282,17 @@ const CaseStudy = () => {
                 <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
                   Next Steps
                 </h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                <ul className="case-study-bullet-list space-y-3">
+                  <li>
                     <span className="text-gray-300">Incorporate driving and parking accessibility</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <li>
                     <span className="text-gray-300">Account for weather conditions and temporary obstacles</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <li>
                     <span className="text-gray-300">Explore internal building routing (stairs, elevators)</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <li>
                     <span className="text-gray-300">Continue collaboration with Project Luminary for long-term impact</span>
                   </li>
                 </ul>
@@ -1438,54 +1419,33 @@ const CaseStudy = () => {
 
               {/* Actions and Results - Horizontal Layout */}
               <div className="grid md:grid-cols-2 gap-8 mb-8">
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold text-white mb-4">Actions</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <ul className="case-study-bullet-list space-y-2">
+                    <li>
                       <span className="text-gray-300 text-sm">User Research and Interviews</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300 text-sm">Competitive Analysis</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300 text-sm">Prototyping features</span>
                     </li>
                   </ul>
                 </div>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold text-white mb-4">Results</h3>
-                  <ul className="space-y-3 text-left list-none p-0 m-0">
-                    <li className="flex items-start gap-3">
-                      <span
-                        className="font-semibold mt-0.5 flex-shrink-0 text-[var(--burgundy)]"
-                        aria-hidden
-                      >
-                        —
-                      </span>
+                  <ul className="case-study-bullet-list space-y-3 text-left list-none p-0 m-0">
+                    <li>
                       <span className="text-gray-300 leading-relaxed text-sm">
                         High-Fidelity Prototype of Phone and VR App
                       </span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <span
-                        className="font-semibold mt-0.5 flex-shrink-0 text-[var(--burgundy)]"
-                        aria-hidden
-                      >
-                        —
-                      </span>
+                    <li>
                       <span className="text-gray-300 leading-relaxed text-sm">Google Home Conversation design</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <span
-                        className="font-semibold mt-0.5 flex-shrink-0 text-[var(--burgundy)]"
-                        aria-hidden
-                      >
-                        —
-                      </span>
+                    <li>
                       <span className="text-gray-300 leading-relaxed text-sm">Ring design</span>
                     </li>
                   </ul>
@@ -1566,17 +1526,14 @@ const CaseStudy = () => {
                   </div>
                 </div>
                 
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                <ul className="case-study-bullet-list space-y-3">
+                  <li>
                     <span className="text-gray-300">User interviews</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <li>
                     <span className="text-gray-300">Competitive Analysis</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <li>
                     <span className="text-gray-300">Proof of Concept: Oura</span>
                   </li>
                 </ul>
@@ -1891,24 +1848,21 @@ const CaseStudy = () => {
               </div>
               
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-2xl font-semibold font-orbitron text-white mb-4">Role</h3>
                   <p className="text-gray-300 font-space-grotesk">UX Researcher & Human-Robot Interaction Designer</p>
                 </div>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-2xl font-semibold font-orbitron text-white mb-4">Tools</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                  <ul className="case-study-bullet-list space-y-2">
+                    <li>
                       <span className="text-gray-300 font-space-grotesk">UFactory xArm robotic arm</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300 font-space-grotesk">Zoom</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
+                    <li>
                       <span className="text-gray-300 font-space-grotesk">VS Code</span>
                     </li>
                   </ul>
@@ -1968,22 +1922,22 @@ const CaseStudy = () => {
               </div>
               
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Ergonomics</h3>
                   <p className="text-gray-300 font-space-grotesk">Gestures positioned at natural human heights (handshake/fist bump at chest, high five at head, wave slightly higher).</p>
                 </div>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Safety</h3>
                   <p className="text-gray-300 font-space-grotesk">Robot moves slowly; handshake grip kept light to avoid pinching.</p>
                 </div>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Social Presence</h3>
                   <p className="text-gray-300 font-space-grotesk">Synchronization with on-screen researcher to reinforce telepresence.</p>
                 </div>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Intuitiveness</h3>
                   <p className="text-gray-300 font-space-grotesk">Multi-step gestures broken into clear phases for smooth interaction.</p>
                 </div>
@@ -2005,17 +1959,17 @@ const CaseStudy = () => {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Trust Building</h3>
                   <p className="text-gray-300 font-space-grotesk">Consistent gestures build trust and reduce awkwardness.</p>
                 </div>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Naturalness</h3>
                   <p className="text-gray-300 font-space-grotesk">Adaptive gesture speed and responsiveness can improve perceived naturalness.</p>
                 </div>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10 md:col-span-2">
+                <div className="min-w-0 bg-white/5 rounded-xl p-6 border border-white/10 md:col-span-2">
                   <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Applications</h3>
                   <p className="text-gray-300 font-space-grotesk">Potential applications: professional meetings, virtual classrooms, telemedicine, and remote assistance.</p>
                 </div>
