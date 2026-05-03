@@ -1640,6 +1640,67 @@
     min-width: 0 !important;
   }
 
+  .legacy-case-study-root .case-study-overview-rule {
+    margin: 0;
+  }
+
+  /* Publication case studies (research pages) */
+  .legacy-case-study-root .publication-case-study .publication-section-rule {
+    margin: 0;
+  }
+  .legacy-case-study-root .publication-case-study .publication-pull.case-pull,
+  .legacy-case-study-root .luminary-case-study .luminary-discovery-pull.case-pull {
+    color: var(--ink-2);
+    font-family: var(--serif-body);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(17px, 2.1vw, 21px);
+    line-height: 1.62;
+    border-top-color: var(--burgundy);
+    border-bottom-color: var(--burgundy);
+  }
+  .legacy-case-study-root .publication-case-study .publication-pull.case-pull p,
+  .legacy-case-study-root .luminary-case-study .luminary-discovery-pull.case-pull p {
+    font-family: var(--serif-body);
+    margin: 0;
+  }
+  .legacy-case-study-root .publication-case-study .publication-pull .about-quote,
+  .legacy-case-study-root .luminary-case-study .luminary-discovery-pull .about-quote {
+    color: var(--burgundy);
+    font-family: var(--serif-display);
+    font-style: normal;
+    font-weight: 700;
+  }
+  .legacy-case-study-root .publication-case-study .publication-bullets li,
+  .legacy-case-study-root .publication-case-study .publication-process-item {
+    font-family: var(--serif-body);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .legacy-case-study-root .publication-case-study .publication-process-label {
+    font-family: var(--serif-display);
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .legacy-case-study-root .publication-case-study .publication-process-item {
+    padding: 10px 0 10px 18px;
+    border-left: 3px solid var(--burgundy);
+  }
+  .legacy-case-study-root .publication-case-study .publication-figures-grid h3 {
+    font-family: var(--serif-display);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  /* Luminary case study — section rules + eval split */
+  .legacy-case-study-root .luminary-case-study .luminary-section-rule,
+  .legacy-case-study-root .robotic-case-study .robotic-section-rule {
+    margin: 0;
+  }
+  .legacy-case-study-root .luminary-case-study .luminary-eval-split-rule {
+    margin: 0;
+  }
+
   /* Oasis case study — editorial scan layout (Playfair/Lora via vars; burgundy accents) */
   .legacy-case-study-root .oasis-case-study .oasis-section-rule {
     margin: 0;

@@ -6,6 +6,25 @@ import VideoModal from '../components/VideoModal';
 import { projectBySlug, PROJECTS } from '../data/projects';
 import Rule from '../components/newspaper/Rule';
 
+const PUBLICATION_SLUGS = ['ar-motion-guidance', 'injury-recovery-ar', 'physical-therapy-mr'];
+
+/** Exact substrings of each project description — pull-quotes only, no new copy */
+const PUBLICATION_PULL_QUOTES = {
+  'ar-motion-guidance':
+    'Notably, the best perspective varied depending on motion visibility and showing more information about the overall motion did not necessarily improve motion execution.',
+  'injury-recovery-ar':
+    'Our findings identify key challenges and propose design variables for future body-based visualizations of body motion data for PT.',
+  'physical-therapy-mr':
+    "Our findings inform design considerations for supporting older adults' needs through MR and outline technical requirements for practical implementation.",
+};
+
+function publicationProcessParts(line) {
+  const sep = ': ';
+  const i = line.indexOf(sep);
+  if (i === -1) return { label: null, body: line };
+  return { label: `${line.slice(0, i)}:`, body: line.slice(i + sep.length) };
+}
+
 /** Oasis — same eight responsibilities, grouped for scanning (editorial layout) */
 const OASIS_RESPONSIBILITY_GROUPS = [
   { title: 'Research & strategy', items: ['Competitive Analysis', 'User Interviews'] },
@@ -40,6 +59,122 @@ function CaseStudyPager({ slug }) {
         </span>
       </Link>
     </nav>
+  );
+}
+
+function PublicationCaseStudyBody({ project, projectSlug, textY }) {
+  const pull = PUBLICATION_PULL_QUOTES[projectSlug];
+  const challenges = project.challenges || [];
+  const process = project.process || [];
+  const results = project.results || [];
+  const images = project.images || [];
+
+  return (
+    <div className="publication-case-study">
+      {pull ? (
+        <motion.section className="mb-24" style={{ y: textY }}>
+          <div className="max-w-4xl mx-auto text-left">
+            <aside className="case-pull publication-pull">
+              <p className="m-0">
+                <span className="about-quote" aria-hidden="true">
+                  &ldquo;
+                </span>
+                {pull}
+                <span aria-hidden="true">&rdquo;</span>
+              </p>
+            </aside>
+            <div className="publication-section-rule mt-10">
+              <Rule kind="thin" />
+            </div>
+          </div>
+        </motion.section>
+      ) : null}
+
+      <motion.section className="mb-24" style={{ y: textY }}>
+        <div className="max-w-4xl mx-auto text-left">
+          <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Challenges</h2>
+          <div className="publication-section-rule mb-10">
+            <Rule kind="thin" />
+          </div>
+          <ul className="publication-bullets space-y-3 list-none p-0 m-0">
+            {challenges.map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <span className="mt-2 flex-shrink-0 font-semibold text-[var(--burgundy)]" aria-hidden>
+                  —
+                </span>
+                <span className="text-gray-300 leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.section>
+
+      <motion.section className="mb-24" style={{ y: textY }}>
+        <div className="max-w-4xl mx-auto text-left">
+          <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Process</h2>
+          <div className="publication-section-rule mb-10">
+            <Rule kind="thin" />
+          </div>
+          <ul className="publication-process-list space-y-4 list-none p-0 m-0">
+            {process.map((line) => {
+              const { label, body } = publicationProcessParts(line);
+              return (
+                <li key={line} className="publication-process-item text-gray-300 leading-relaxed">
+                  {label ? (
+                    <>
+                      <strong className="publication-process-label">{label}</strong> {body}
+                    </>
+                  ) : (
+                    line
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </motion.section>
+
+      <motion.section className="mb-24" style={{ y: textY }}>
+        <div className="max-w-4xl mx-auto text-left">
+          <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Results</h2>
+          <div className="publication-section-rule mb-10">
+            <Rule kind="thin" />
+          </div>
+          <ul className="publication-bullets space-y-3 list-none p-0 m-0">
+            {results.map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <span className="mt-2 flex-shrink-0 font-semibold text-[var(--burgundy)]" aria-hidden>
+                  —
+                </span>
+                <span className="text-gray-300 leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.section>
+
+      {images.length > 0 ? (
+        <motion.section className="mb-24" style={{ y: textY }}>
+          <div className="max-w-4xl mx-auto text-left">
+            <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Figures</h2>
+            <div className="publication-section-rule mb-10">
+              <Rule kind="thin" />
+            </div>
+            <div className="publication-figures-grid grid md:grid-cols-2 gap-6">
+              {images.map((fig) => (
+                <div
+                  key={`${fig.title}-${fig.description}`}
+                  className="bg-white/5 rounded-xl p-6 border border-white/10 text-left"
+                >
+                  <h3 className="text-lg font-semibold text-white mb-2">{fig.title}</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed m-0">{fig.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+      ) : null}
+    </div>
   );
 }
 
@@ -115,6 +250,7 @@ const CaseStudy = () => {
         paperUrl: '/publications/ar-motion-guidance.pdf'
       },
       'injury-recovery-ar': {
+        slug: 'injury-recovery-ar',
         title: 'Understanding User Needs for Injury Recovery with Augmented Reality',
         subtitle: 'User-centered design research for AR-enhanced physical therapy',
         backgroundImage: '/api/placeholder/1920/1080',
@@ -151,6 +287,7 @@ const CaseStudy = () => {
         paperUrl: 'https://0fbd1968-4f2d-4bdb-bce8-e3134bc377d6.filesusr.com/ugd/2e35d5_5b337e2fedf44fa08271f4571a847906.pdf'
       },
       'physical-therapy-mr': {
+        slug: 'physical-therapy-mr',
         title: 'Understanding Physical Therapy Challenges for Older Adults through Mixed Reality',
         subtitle: 'Research on using MR to address PT challenges for older adults',
         backgroundImage: '/api/placeholder/1920/1080',
@@ -341,7 +478,7 @@ const CaseStudy = () => {
           ...(isMobile ? {} : { y: textY })
         }}
       >
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-left">
           <p className="text-lg text-gray-300 leading-relaxed mb-12">
             {project.description}
           </p>
@@ -461,6 +598,10 @@ const CaseStudy = () => {
               )}
             </div>
           )}
+
+          <div className="case-study-overview-rule mb-10">
+            <Rule kind="thin" />
+          </div>
           
           {/* Project Details Grid */}
           <div className="grid md:grid-cols-4 gap-8 mb-12">
@@ -483,6 +624,10 @@ const CaseStudy = () => {
           </div>
         </div>
       </motion.section>
+
+      {PUBLICATION_SLUGS.includes(projectSlug) ? (
+        <PublicationCaseStudyBody project={project} projectSlug={projectSlug} textY={textY} />
+      ) : null}
 
       {/* Technologies */}
       <motion.section 
@@ -511,16 +656,19 @@ const CaseStudy = () => {
 
       {/* Project-Specific Sections for Luminary AR */}
       {projectSlug === 'luminary-ar' && (
-        <>
+        <div className="luminary-case-study">
           {/* Overview */}
           <motion.section 
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Overview
               </h2>
+              <div className="luminary-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               <p className="text-lg text-gray-300 leading-relaxed mb-8">
                 College campuses and cities around the globe face inherent accessibility challenges. Stairs, broken sidewalks, 
                 unmaintained elevators, high curbs, and construction pose difficulties for individuals with mobility impairments. 
@@ -533,7 +681,7 @@ const CaseStudy = () => {
                 real-time routing, accessibility ratings, obstacle reporting, and community support, Luminary AR helps students 
                 with mobility impairments navigate efficiently and safely.
               </p>
-              <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+              <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                 <div className="w-full rounded-lg overflow-hidden">
                   <img 
                     src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/luminaryhero.jpg`}
@@ -557,10 +705,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Discovery
               </h2>
+              <div className="luminary-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="mb-12">
                 <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
@@ -584,13 +735,17 @@ const CaseStudy = () => {
                   </li>
                 </ul>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10 mb-8">
-                  <p className="text-gray-300 italic text-lg leading-relaxed">
-                    "During my orientation, I was stuck in classrooms where my wheelchair didn't fit between the desks… 
-                    I'm constantly worried about attending student organization events because I never know what obstacles 
-                    I'll encounter".
+                <aside className="case-pull luminary-discovery-pull mb-8">
+                  <p className="m-0">
+                    <span className="about-quote" aria-hidden="true">
+                      &ldquo;
+                    </span>
+                    During my orientation, I was stuck in classrooms where my wheelchair didn&apos;t fit between the desks…
+                    I&apos;m constantly worried about attending student organization events because I never know what obstacles
+                    I&apos;ll encounter
+                    <span aria-hidden="true">&rdquo;</span>
                   </p>
-                </div>
+                </aside>
                 
                 <p className="text-lg text-gray-300 leading-relaxed mb-8">
                   Steep slopes, uneven sidewalks, and high curbs further complicate navigation, requiring advanced planning 
@@ -643,12 +798,15 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Personas
               </h2>
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+              <div className="luminary-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                   <div className="w-full rounded-lg mb-4 overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/persona1-nancy-lee.jpg`}
@@ -666,7 +824,7 @@ const CaseStudy = () => {
                   <p className="text-white font-medium">Nancy Lee</p>
                   <p className="text-gray-400 text-sm">Computer Science PhD Student</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                   <div className="w-full rounded-lg mb-4 overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/persona2-olivia-bennett.jpg`}
@@ -684,7 +842,7 @@ const CaseStudy = () => {
                   <p className="text-white font-medium">Olivia Bennett</p>
                   <p className="text-gray-400 text-sm">Student</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                   <div className="w-full rounded-lg mb-4 overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/persona3-rachel-smith.jpg`}
@@ -702,7 +860,7 @@ const CaseStudy = () => {
                   <p className="text-white font-medium">Rachel Smith</p>
                   <p className="text-gray-400 text-sm">Chemistry Lab Assistant</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                   <div className="w-full rounded-lg mb-4 overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/persona4-mitchell-pritchett.jpg`}
@@ -729,10 +887,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Key Features
               </h2>
+              <div className="luminary-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <h3 className="text-lg font-semibold text-white mb-2">Accessibility Info</h3>
@@ -759,7 +920,7 @@ const CaseStudy = () => {
                   <p className="text-gray-300 text-sm">Guided navigation with alternative routes</p>
                 </div>
               </div>
-                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                   <div className="w-full rounded-lg overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/features.png`}
@@ -783,10 +944,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Ideation & Prototyping
               </h2>
+              <div className="luminary-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="space-y-12">
                 <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -794,7 +958,7 @@ const CaseStudy = () => {
                     <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">Prototype 1</h3>
                     <p className="text-gray-300 leading-relaxed">Initial accessibility overlay on Google Maps with basic rating system and toggle settings.</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                     <div className="w-full rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/prototype1.png`}
@@ -814,7 +978,7 @@ const CaseStudy = () => {
 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="order-2 md:order-1">
-                    <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                    <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                       <div className="w-full rounded-lg overflow-hidden">
                         <img 
                           src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/prototype2.png`}
@@ -842,7 +1006,7 @@ const CaseStudy = () => {
                     <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-4">Prototype 3</h3>
                     <p className="text-gray-300 leading-relaxed">Advanced routing with pre-search options, detailed settings, and dynamic assistance features.</p>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                     <div className="w-full rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/prototype3.png`}
@@ -862,7 +1026,7 @@ const CaseStudy = () => {
 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="order-2 md:order-1">
-                    <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                    <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                       <div className="w-full rounded-lg overflow-hidden">
                         <img 
                           src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/finalprototype.png`}
@@ -893,10 +1057,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 User Evaluation
               </h2>
+              <div className="luminary-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="grid md:grid-cols-2 gap-12 mb-8">
                 <div>
@@ -923,6 +1090,11 @@ const CaseStudy = () => {
                       <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
                       <span className="text-gray-300"><strong>Screen 4:</strong> Toggle accessibility criticized; landmark-based routing suggested.</span>
                     </li>
+                  </ul>
+                  <div className="luminary-eval-split-rule my-6">
+                    <Rule kind="thin" />
+                  </div>
+                  <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-beige-500 rounded-full mt-2 flex-shrink-0" />
                       <span className="text-gray-300"><strong>Screen 5:</strong> Ratings and comments useful; thumbs up/down redundant.</span>
@@ -976,10 +1148,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Final Design
               </h2>
+              <div className="luminary-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-3">Sign In</h3>
@@ -1014,7 +1189,7 @@ const CaseStudy = () => {
                   <p className="text-gray-300 text-sm">Post-route feedback system with comments, tags, and star ratings</p>
                 </div>
               </div>
-                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                   <div className="w-full rounded-lg overflow-hidden">
                     <img 
                       src={`${import.meta.env.BASE_URL}images/projects/luminary-ar/annotatedfigmamockup.png`}
@@ -1103,10 +1278,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Conclusion & Next Steps
               </h2>
+              <div className="luminary-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               <p className="text-lg text-gray-300 leading-relaxed mb-8">
                 Luminary AR successfully combines research, design, and technical implementation to provide accessible routing 
                 for students with mobility impairments. While structural issues remain, the app 
@@ -1138,7 +1316,7 @@ const CaseStudy = () => {
               </div>
             </div>
           </motion.section>
-        </>
+        </div>
       )}
 
       {/* Project-Specific Sections for Oasis */}
@@ -1614,16 +1792,19 @@ const CaseStudy = () => {
 
       {/* Project-Specific Sections for Robotic Gestures */}
       {projectSlug === 'robotic-gestures' && (
-        <>
+        <div className="robotic-case-study">
           {/* Overview */}
           <motion.section 
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Overview
               </h2>
+              <div className="robotic-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -1699,10 +1880,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Role & Tools
               </h2>
+              <div className="robotic-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="bg-white/5 rounded-xl p-6 border border-white/10">
@@ -1741,10 +1925,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Approach
               </h2>
+              <div className="robotic-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="space-y-6">
                 <div className="bg-white/5 rounded-xl p-6 border border-white/10">
@@ -1770,10 +1957,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Key Design Considerations
               </h2>
+              <div className="robotic-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white/5 rounded-xl p-6 border border-white/10">
@@ -1804,12 +1994,15 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Findings & Insights
               </h2>
+              <div className="robotic-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
-              <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Trust Building</h3>
                   <p className="text-gray-300 font-space-grotesk">Consistent gestures build trust and reduce awkwardness.</p>
@@ -1820,7 +2013,7 @@ const CaseStudy = () => {
                   <p className="text-gray-300 font-space-grotesk">Adaptive gesture speed and responsiveness can improve perceived naturalness.</p>
                 </div>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 md:col-span-2">
                   <h3 className="text-xl font-semibold font-orbitron text-white mb-4">Applications</h3>
                   <p className="text-gray-300 font-space-grotesk">Potential applications: professional meetings, virtual classrooms, telemedicine, and remote assistance.</p>
                 </div>
@@ -1833,14 +2026,17 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Visuals
               </h2>
+              <div className="robotic-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left side - Vertical image */}
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10 text-center">
+                <div className="bg-white/5 rounded-xl p-6 border border-white/10 text-left">
                   <div className="w-full rounded-lg overflow-hidden mb-4">
                     <img
                       src={`${import.meta.env.BASE_URL}images/projects/robotic-gestures/setup.JPG`}
@@ -1861,7 +2057,7 @@ const CaseStudy = () => {
                 
                 {/* Right side - Two horizontal images stacked */}
                 <div className="space-y-8">
-                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 text-center">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 text-left">
                     <div className="w-full rounded-lg overflow-hidden mb-4">
                       <img
                         src={`${import.meta.env.BASE_URL}images/projects/robotic-gestures/moresetup.JPG`}
@@ -1880,7 +2076,7 @@ const CaseStudy = () => {
                     <p className="text-gray-300 font-space-grotesk text-sm">Additional robotic arm setup and configuration</p>
                   </div>
                   
-                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 text-center">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10 text-left">
                     <div className="w-full rounded-lg overflow-hidden mb-4">
                       <img
                         src={`${import.meta.env.BASE_URL}images/projects/robotic-gestures/participantreaction.png`}
@@ -1908,10 +2104,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Outcome
               </h2>
+              <div className="robotic-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="bg-white/5 rounded-xl p-8 border border-white/10">
                 <p className="text-lg text-gray-300 leading-relaxed font-space-grotesk">
@@ -1920,7 +2119,7 @@ const CaseStudy = () => {
               </div>
             </div>
           </motion.section>
-        </>
+        </div>
       )}
 
       <Rule kind="fancy" />
