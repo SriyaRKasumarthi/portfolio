@@ -603,8 +603,8 @@ const CaseStudy = () => {
             <Rule kind="thin" />
           </div>
           
-          {/* Project Details Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8 mb-12">
+          {/* Project Details Grid — columns via .case-study-meta-grid (Chrome-safe minmax) */}
+          <div className="case-study-meta-grid mb-12">
             <div className="bg-white/5 rounded-xl p-6 border border-white/10">
               <h3 className="text-sm font-medium text-gray-400 mb-2">Year</h3>
               <p className="text-xl font-semibold text-white">{project.year}</p>

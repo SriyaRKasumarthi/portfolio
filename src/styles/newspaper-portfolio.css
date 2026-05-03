@@ -1477,13 +1477,14 @@
     word-break: normal;
   }
 
-  /* Prevent long words / URLs from breaking layout */
+  /* Prevent overflow; avoid word-break:break-word here — Chrome uses it in
+     min-content sizing and can collapse grid/flex tracks to near-zero width. */
   .legacy-case-study-root .case-legacy-content p,
   .legacy-case-study-root .case-legacy-content li,
   .legacy-case-study-root .case-legacy-content td,
   .legacy-case-study-root .case-legacy-content th {
     overflow-wrap: break-word;
-    word-break: break-word;
+    word-break: normal;
     max-width: 100%;
   }
 
@@ -1497,8 +1498,14 @@
     max-width: 100%;
   }
 
-  .legacy-case-study-root .case-legacy-content .grid > * {
-    min-width: 0;
+  /* Stable meta row (Year / Role / …): auto-fit + minmax prevents Chrome
+     collapsing 1fr tracks when min-content is tiny. */
+  .legacy-case-study-root .case-legacy-content .case-study-meta-grid {
+    display: grid;
+    width: 100%;
+    box-sizing: border-box;
+    gap: clamp(12px, 2.5vw, 24px);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.5rem), 1fr));
   }
 
   .legacy-case-study-root .case-legacy-content li.flex > span:last-child {
@@ -1512,7 +1519,7 @@
     width: 100% !important;
     max-width: 100% !important;
     overflow-wrap: break-word !important;
-    word-break: break-word !important;
+    word-break: normal !important;
     hyphens: auto;
     padding: clamp(14px, 4vw, 28px) !important;
     margin-left: 0 !important;
@@ -1744,7 +1751,7 @@
     padding: 10px 0 10px 18px;
     border-left: 3px solid var(--burgundy);
     overflow-wrap: break-word;
-    word-break: break-word;
+    word-break: normal;
   }
   .legacy-case-study-root .publication-case-study .publication-figures-grid h3 {
     font-family: var(--serif-display);
