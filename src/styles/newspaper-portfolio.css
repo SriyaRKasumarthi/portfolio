@@ -1438,17 +1438,106 @@
     object-fit: cover;
     display: block;
   }
-  .legacy-case-study-root .case-legacy-content .bg-black { background: transparent !important; }
-  .legacy-case-study-root .case-legacy-content .text-gray-300 {
-    color: var(--ink-soft) !important;
-  }
-  .legacy-case-study-root .case-legacy-content .text-white {
-    color: var(--ink) !important;
-  }
   .case-hero-img {
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  /* --- Case studies: force Selected Works typography over legacy Tailwind --- */
+  .legacy-case-study-root .case-legacy-content {
+    font-family: var(--serif-body) !important;
+    color: var(--ink-2) !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .font-orbitron,
+  .legacy-case-study-root .case-legacy-content h1,
+  .legacy-case-study-root .case-legacy-content h2,
+  .legacy-case-study-root .case-legacy-content h3 {
+    font-family: var(--serif-display) !important;
+    font-weight: 800 !important;
+    font-style: italic !important;
+    color: var(--ink) !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .font-space-grotesk,
+  .legacy-case-study-root .case-legacy-content p,
+  .legacy-case-study-root .case-legacy-content li {
+    font-family: var(--serif-body) !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .max-w-4xl,
+  .legacy-case-study-root .case-legacy-content .max-w-5xl,
+  .legacy-case-study-root .case-legacy-content .max-w-6xl {
+    max-width: 100% !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .text-white,
+  .legacy-case-study-root .case-legacy-content .text-gray-100 {
+    color: var(--ink) !important;
+  }
+  .legacy-case-study-root .case-legacy-content .text-gray-200,
+  .legacy-case-study-root .case-legacy-content .text-gray-300,
+  .legacy-case-study-root .case-legacy-content .text-gray-400,
+  .legacy-case-study-root .case-legacy-content .text-gray-500 {
+    color: var(--ink-soft) !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .bg-black,
+  .legacy-case-study-root .case-legacy-content .bg-black\/40,
+  .legacy-case-study-root .case-legacy-content .bg-black\/60 {
+    background-color: transparent !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .bg-white\/5,
+  .legacy-case-study-root .case-legacy-content .bg-white\/10,
+  .legacy-case-study-root .case-legacy-content .bg-white\/20 {
+    background-color: rgba(251, 247, 237, 0.55) !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .border-white\/10,
+  .legacy-case-study-root .case-legacy-content .border-white\/20 {
+    border-color: rgba(26, 22, 18, 0.14) !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .bg-gray-500,
+  .legacy-case-study-root .case-legacy-content .bg-gray-600 {
+    background-color: rgba(26, 22, 18, 0.08) !important;
+    color: var(--ink) !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .bg-beige-500,
+  .legacy-case-study-root .case-legacy-content .bg-beige-400 {
+    background-color: var(--burgundy) !important;
+    color: var(--cream) !important;
+    border-color: var(--burgundy-deep) !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .max-w-4xl.mx-auto.text-center,
+  .legacy-case-study-root .case-legacy-content .max-w-5xl.mx-auto.text-center {
+    text-align: left !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .rounded-xl,
+  .legacy-case-study-root .case-legacy-content .rounded-lg,
+  .legacy-case-study-root .case-legacy-content .rounded-full {
+    border-radius: 2px !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content .shadow-lg,
+  .legacy-case-study-root .case-legacy-content .shadow-2xl {
+    box-shadow: 0 1px 0 rgba(26, 22, 18, 0.06), 0 10px 28px -18px rgba(26, 22, 18, 0.22) !important;
+  }
+
+  .legacy-case-study-root .case-legacy-content a.inline-flex,
+  .legacy-case-study-root .case-legacy-content a[class*="inline-flex"] {
+    font-family: var(--mono) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.12em !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
   }
 
   @media (hover: hover) {

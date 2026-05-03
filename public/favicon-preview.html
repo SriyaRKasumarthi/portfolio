@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favicon Preview - Sriya Kasumarthi Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #F8F5EF 0%, #EAE7DC 100%);
+      padding: 40px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-family: 'Orbitron', monospace;
+      color: #2A2A2A;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .preview-card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .preview-card h2 {
+      font-family: 'Orbitron', monospace;
+      color: #2A2A2A;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+    .icon-display {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+      align-items: center;
+    }
+    .icon-wrapper {
+      text-align: center;
+    }
+    .icon-wrapper p {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #666;
+    }
+    .dark-bg {
+      background: #2A2A2A;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .light-bg {
+      background: #F8F5EF;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .specs {
+      background: #F8F5EF;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    .specs ul {
+      list-style: none;
+      color: #2A2A2A;
+    }
+    .specs li {
+      padding: 8px 0;
+      border-bottom: 1px solid #EAE7DC;
+    }
+    .specs li:last-child {
+      border-bottom: none;
+    }
+    .color-swatch {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      margin-right: 8px;
+      vertical-align: middle;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Favicon System Preview</h1>
+    
+    <div class="grid">
+      <!-- Primary Favicon -->
+      <div class="preview-card">
+        <h2>Primary Favicon</h2>
+        <p style="color: #666; margin-bottom: 20px;">Main detailed version (128x128)</p>
+        <div class="light-bg">
+          <div class="icon-display">
+            <div class="icon-wrapper">
+              <img src="/favicon.svg" width="128" height="128" alt="Primary favicon 128px">
+              <p>128×128</p>
+            </div>
+            <div class="icon-wrapper">
+              <img src="/favicon.svg" width="64" height="64" alt="Primary favicon 64px">
+              <p>64×64</p>
+            </div>
+            <div class="icon-wrapper">
+              <img src="/favicon.svg" width="32" height="32" alt="Primary favicon 32px">
+              <p>32×32</p>
+            </div>
+            <div class="icon-wrapper">
+              <img src="/favicon.svg" width="16" height="16" alt="Primary favicon 16px">
+              <p>16×16</p>
+            </div>
+          </div>
+        </div>
+        <div class="specs">
+          <ul>
+            <li><strong>File:</strong> favicon.svg</li>
+            <li><strong>ViewBox:</strong> 0 0 128 128</li>
+            <li><strong>Features:</strong> Gradients, accent dots</li>
+            <li><strong>Use:</strong> Modern browsers</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Simple Favicon -->
+      <div class="preview-card">
+        <h2>Simple Favicon</h2>
+        <p style="color: #666; margin-bottom: 20px;">Simplified version (32x32)</p>
+        <div class="light-bg">
+          <div class="icon-display">
+            <div class="icon-wrapper">
+              <img src="/favicon-simple.svg" width="64" height="64" alt="Simple favicon 64px">
+              <p>64×64</p>
+            </div>
+            <div class="icon-wrapper">
+              <img src="/favicon-simple.svg" width="32" height="32" alt="Simple favicon 32px">
+              <p>32×32</p>
+            </div>
+            <div class="icon-wrapper">
+              <img src="/favicon-simple.svg" width="16" height="16" alt="Simple favicon 16px">
+              <p>16×16</p>
+            </div>
+          </div>
+        </div>
+        <div class="specs">
+          <ul>
+            <li><strong>File:</strong> favicon-simple.svg</li>
+            <li><strong>ViewBox:</strong> 0 0 32 32</li>
+            <li><strong>Features:</strong> Thicker strokes, simple</li>
+            <li><strong>Use:</strong> Small size fallback</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Dark Mode Favicon -->
+      <div class="preview-card">
+        <h2>Dark Mode Favicon</h2>
+        <p style="color: #666; margin-bottom: 20px;">Dark background version (32x32)</p>
+        <div class="dark-bg">
+          <div class="icon-display">
+            <div class="icon-wrapper">
+              <img src="/favicon-dark.svg" width="64" height="64" alt="Dark favicon 64px">
+              <p style="color: white;">64×64</p>
+            </div>
+            <div class="icon-wrapper">
+              <img src="/favicon-dark.svg" width="32" height="32" alt="Dark favicon 32px">
+              <p style="color: white;">32×32</p>
+            </div>
+            <div class="icon-wrapper">
+              <img src="/favicon-dark.svg" width="16" height="16" alt="Dark favicon 16px">
+              <p style="color: white;">16×16</p>
+            </div>
+          </div>
+        </div>
+        <div class="specs">
+          <ul>
+            <li><strong>File:</strong> favicon-dark.svg</li>
+            <li><strong>ViewBox:</strong> 0 0 32 32</li>
+            <li><strong>Features:</strong> Dark background</li>
+            <li><strong>Use:</strong> Optional dark mode</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Palette -->
+    <div class="preview-card">
+      <h2>Color Palette</h2>
+      <div class="specs">
+        <ul>
+          <li>
+            <span class="color-swatch" style="background: #F8F5EF;"></span>
+            <strong>Background Light:</strong> #F8F5EF
+          </li>
+          <li>
+            <span class="color-swatch" style="background: #EAE7DC;"></span>
+            <strong>Background Mid:</strong> #EAE7DC
+          </li>
+          <li>
+            <span class="color-swatch" style="background: #B8A47A;"></span>
+            <strong>Accent Primary:</strong> #B8A47A
+          </li>
+          <li>
+            <span class="color-swatch" style="background: #A89468;"></span>
+            <strong>Accent Mid:</strong> #A89468
+          </li>
+          <li>
+            <span class="color-swatch" style="background: #8A7A58;"></span>
+            <strong>Accent Dark:</strong> #8A7A58
+          </li>
+          <li>
+            <span class="color-swatch" style="background: #2A2A2A;"></span>
+            <strong>Dark Mode BG:</strong> #2A2A2A
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Design Notes -->
+    <div class="preview-card">
+      <h2>Design Notes</h2>
+      <div class="specs">
+        <ul>
+          <li><strong>Typography Reference:</strong> Orbitron (geometric, tech-inspired)</li>
+          <li><strong>Shape Style:</strong> Angular, minimalist lettermark "S"</li>
+          <li><strong>Visual Elements:</strong> Accent dots for robotic aesthetic</li>
+          <li><strong>Border Radius:</strong> 24px (large), 6px (small) for modern app feel</li>
+          <li><strong>Gradient Direction:</strong> Top-left to bottom-right diagonal</li>
+          <li><strong>Stroke Style:</strong> Round caps and joins for smooth appearance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

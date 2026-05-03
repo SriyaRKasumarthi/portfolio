@@ -1,9 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import NewspaperProjectLayout from '../components/newspaper/NewspaperProjectLayout';
 import VideoModal from '../components/VideoModal';
-import { projectBySlug } from '../data/projects';
+import { projectBySlug, PROJECTS } from '../data/projects';
+import Rule from '../components/newspaper/Rule';
+
+function CaseStudyPager({ slug }) {
+  const withStudy = PROJECTS.filter((p) => p.hasCaseStudy);
+  const idx = withStudy.findIndex((p) => p.slug === slug);
+  if (idx === -1 || withStudy.length < 2) return null;
+  const prev = withStudy[(idx - 1 + withStudy.length) % withStudy.length];
+  const next = withStudy[(idx + 1) % withStudy.length];
+  return (
+    <nav className="case-pager" aria-label="Project navigation">
+      <Link to={`/projects/${prev.slug}`} className="pager-link pager-prev" data-cursor="hover">
+        <span className="pager-eyebrow">← Previous Project</span>
+        <span className="pager-title">{prev.title}</span>
+        <span className="pager-meta">
+          {prev.category} · {prev.date}
+        </span>
+      </Link>
+      <Link to={`/projects/${next.slug}`} className="pager-link pager-next" data-cursor="hover">
+        <span className="pager-eyebrow">Next Project →</span>
+        <span className="pager-title">{next.title}</span>
+        <span className="pager-meta">
+          {next.category} · {next.date}
+        </span>
+      </Link>
+    </nav>
+  );
+}
 
 const CaseStudy = () => {
   const { slug: projectSlug } = useParams();
@@ -1842,6 +1869,9 @@ const CaseStudy = () => {
           </motion.section>
         </>
       )}
+
+      <Rule kind="fancy" />
+      <CaseStudyPager slug={projectSlug} />
 
       {/* Video Modal */}
       <VideoModal
