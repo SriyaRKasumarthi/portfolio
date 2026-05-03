@@ -6,6 +6,17 @@ import VideoModal from '../components/VideoModal';
 import { projectBySlug, PROJECTS } from '../data/projects';
 import Rule from '../components/newspaper/Rule';
 
+/** Oasis — same eight responsibilities, grouped for scanning (editorial layout) */
+const OASIS_RESPONSIBILITY_GROUPS = [
+  { title: 'Research & strategy', items: ['Competitive Analysis', 'User Interviews'] },
+  { title: 'Product & interaction', items: ['Prototyping UX features and user flow'] },
+  {
+    title: 'Spatial, voice & hardware',
+    items: ['VR App High-fidelity prototype', 'Google Home Conversation design', 'Ring Design'],
+  },
+  { title: 'Brand & systems', items: ['Design System', 'Logo Design'] },
+];
+
 function CaseStudyPager({ slug }) {
   const withStudy = PROJECTS.filter((p) => p.hasCaseStudy);
   const idx = withStudy.findIndex((p) => p.slug === slug);
@@ -1132,17 +1143,20 @@ const CaseStudy = () => {
 
       {/* Project-Specific Sections for Oasis */}
       {projectSlug === 'oasis' && (
-        <>
+        <div className="oasis-case-study">
           {/* Overview */}
           <motion.section 
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Overview
               </h2>
-              
+              <div className="oasis-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
+
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                 <motion.a
@@ -1207,8 +1221,8 @@ const CaseStudy = () => {
               </div>
               
               {/* Logo Section */}
-              <div className="bg-white/5 rounded-xl p-8 border border-white/10 mb-8 text-center">
-                <div className="w-32 h-32 mx-auto mb-4 rounded-lg overflow-hidden">
+              <div className="bg-white/5 rounded-xl p-8 border border-white/10 mb-8 text-left">
+                <div className="w-32 h-32 mb-4 rounded-lg overflow-hidden">
                   <img 
                     src={`${import.meta.env.BASE_URL}images/projects/oasis/oasislogo.png`}
                     alt="Oasis Logo"
@@ -1264,40 +1278,54 @@ const CaseStudy = () => {
                 
                 <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <h3 className="text-xl font-semibold text-white mb-4">Results</h3>
-                  <p className="text-gray-300 leading-relaxed text-sm">
-                    High-Fidelity Prototype of Phone and VR App, Google Home Conversation design, Ring design
-                  </p>
+                  <ul className="space-y-3 text-left list-none p-0 m-0">
+                    <li className="flex items-start gap-3">
+                      <span
+                        className="font-semibold mt-0.5 flex-shrink-0 text-[var(--burgundy)]"
+                        aria-hidden
+                      >
+                        —
+                      </span>
+                      <span className="text-gray-300 leading-relaxed text-sm">
+                        High-Fidelity Prototype of Phone and VR App
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span
+                        className="font-semibold mt-0.5 flex-shrink-0 text-[var(--burgundy)]"
+                        aria-hidden
+                      >
+                        —
+                      </span>
+                      <span className="text-gray-300 leading-relaxed text-sm">Google Home Conversation design</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span
+                        className="font-semibold mt-0.5 flex-shrink-0 text-[var(--burgundy)]"
+                        aria-hidden
+                      >
+                        —
+                      </span>
+                      <span className="text-gray-300 leading-relaxed text-sm">Ring design</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
 
-              {/* My Responsibilities - Grid Layout */}
-              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-                <h3 className="text-xl font-semibold text-white mb-6">My Responsibilities</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <span className="text-gray-300 text-sm">Competitive Analysis</span>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <span className="text-gray-300 text-sm">User Interviews</span>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <span className="text-gray-300 text-sm">Prototyping UX features and user flow</span>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <span className="text-gray-300 text-sm">VR App High-fidelity prototype</span>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <span className="text-gray-300 text-sm">Google Home Conversation design</span>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <span className="text-gray-300 text-sm">Design System</span>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <span className="text-gray-300 text-sm">Ring Design</span>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <span className="text-gray-300 text-sm">Logo Design</span>
-                  </div>
+              {/* My Responsibilities — categorized, left-aligned, 2 columns on desktop */}
+              <div className="bg-white/5 rounded-xl p-6 sm:p-8 border border-white/10 text-left">
+                <h3 className="text-xl font-semibold text-white mb-8">My Responsibilities</h3>
+                <div className="space-y-0">
+                  {OASIS_RESPONSIBILITY_GROUPS.map((group) => (
+                    <div key={group.title} className="oasis-resp-block">
+                      <h4 className="oasis-cat-title">{group.title}</h4>
+                      <ul className="oasis-resp-list">
+                        {group.items.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -1308,20 +1336,29 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Discovery
               </h2>
+              <div className="oasis-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="mb-8">
                 <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
                   Identifying the Problem Space
                 </h3>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10 mb-8">
-                  <p className="text-gray-300 italic text-lg leading-relaxed">
-                    "Efforts are being taken to mitigate the medicalization of menopause, by designing for menopausal [people's] overall well-being rather than a specific physiological or psychological symptom." – Thiruvenkatanathan Et al.
+                <aside className="case-pull oasis-discovery-pull">
+                  <p className="m-0">
+                    <span className="about-quote" aria-hidden="true">
+                      &ldquo;
+                    </span>
+                    Efforts are being taken to mitigate the medicalization of menopause, by designing for menopausal
+                    [people&apos;s] overall well-being rather than a specific physiological or psychological symptom.
+                    <span aria-hidden="true">&rdquo;</span>
                   </p>
-                </div>
+                  <footer className="oasis-pull-attrib">&mdash; Thiruvenkatanathan Et al.</footer>
+                </aside>
               </div>
 
               <div className="mb-8">
@@ -1372,10 +1409,13 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 System Overview & Prototypes
               </h2>
+              <div className="oasis-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
               <div className="mb-12">
                 <h3 className="text-2xl font-semibold font-space-grotesk text-white mb-6">
@@ -1407,7 +1447,7 @@ const CaseStudy = () => {
                 </h3>
                 
                 <div className="grid md:grid-cols-2 gap-8">
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                     <div className="w-full rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/oasis/oasisapp.png`}
@@ -1426,7 +1466,7 @@ const CaseStudy = () => {
                     <p className="text-gray-300 text-sm mt-2">Mobile application for symptom tracking and community support</p>
                   </div>
                   
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left">
                     <div className="w-full rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/oasis/oasisvr.png`}
@@ -1445,7 +1485,7 @@ const CaseStudy = () => {
                     <p className="text-gray-300 text-sm mt-2">Immersive relaxation and wellness experiences</p>
                   </div>
                   
-                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-center">
+                  <div className="bg-white/5 rounded-xl p-8 border border-white/10 text-left md:col-span-2">
                     <div className="w-full rounded-lg overflow-hidden">
                       <img 
                         src={`${import.meta.env.BASE_URL}images/projects/oasis/oasisring.png`}
@@ -1473,26 +1513,29 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 UX Design Goals
               </h2>
+              <div className="oasis-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">User-Centered Design</h3>
+              <div className="grid md:grid-cols-2 gap-6 oasis-tile-grid">
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">User-Centered Design</h3>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">Clear Medical Explanations</h3>
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">Clear Medical Explanations</h3>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">Menopause Specific Symptoms</h3>
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">Menopause Specific Symptoms</h3>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">Voice Accessible</h3>
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">Voice Accessible</h3>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">AI Analytics and Insights</h3>
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">AI Analytics and Insights</h3>
                 </div>
               </div>
             </div>
@@ -1503,29 +1546,32 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Key Features
               </h2>
+              <div className="oasis-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">Symptom logging</h3>
+              <div className="grid md:grid-cols-2 gap-6 oasis-tile-grid">
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">Symptom logging</h3>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">In-app Shop for Supplies</h3>
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">In-app Shop for Supplies</h3>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">Medication Reminders</h3>
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">Medication Reminders</h3>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">In-app Appointment Booking</h3>
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">In-app Appointment Booking</h3>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">Stress Reduction Techniques</h3>
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">Stress Reduction Techniques</h3>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-2">Sensitive Notifications</h3>
+                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left min-h-0">
+                  <h3 className="text-lg font-semibold text-white mb-0 oasis-tile-title">Sensitive Notifications</h3>
                 </div>
               </div>
             </div>
@@ -1536,27 +1582,34 @@ const CaseStudy = () => {
             className="mb-24"
             style={{ y: textY }}
           >
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold font-orbitron text-white mb-8">
+            <div className="max-w-4xl mx-auto text-left">
+              <h2 className="text-4xl font-bold font-orbitron text-white mb-4">
                 Lessons Learned
               </h2>
+              <div className="oasis-section-rule mb-10">
+                <Rule kind="thin" />
+              </div>
               
-              <div className="space-y-6">
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-                  <h3 className="text-xl font-semibold text-white mb-4">The importance of empathy</h3>
-                </div>
+              <div className="space-y-8">
+                <article className="bg-white/5 rounded-xl p-6 sm:p-8 border border-white/10 oasis-lesson">
+                  <h3 className="text-xl font-semibold text-white mb-0">The importance of empathy</h3>
+                </article>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-                  <h3 className="text-xl font-semibold text-white mb-4">Menopause is often misunderstood and characterized by physical and emotional changes</h3>
-                </div>
+                <article className="bg-white/5 rounded-xl p-6 sm:p-8 border border-white/10 oasis-lesson">
+                  <h3 className="text-xl font-semibold text-white mb-0">
+                    Menopause is often misunderstood and characterized by physical and emotional changes
+                  </h3>
+                </article>
                 
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-                  <h3 className="text-xl font-semibold text-white mb-4">Menopause is interdisciplinary; therefore its solutions must be holistic</h3>
-                </div>
+                <article className="bg-white/5 rounded-xl p-6 sm:p-8 border border-white/10 oasis-lesson">
+                  <h3 className="text-xl font-semibold text-white mb-0">
+                    Menopause is interdisciplinary; therefore its solutions must be holistic
+                  </h3>
+                </article>
               </div>
             </div>
           </motion.section>
-        </>
+        </div>
       )}
 
       {/* Project-Specific Sections for Robotic Gestures */}
